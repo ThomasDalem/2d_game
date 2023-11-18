@@ -1,3 +1,5 @@
 2d_game
 cmake_install.cmake
 build/
+*.o
+.vscode/
