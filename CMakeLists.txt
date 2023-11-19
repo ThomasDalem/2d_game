@@ -6,19 +6,29 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
 
 set(SRCS
     src/main.cpp
+    src/MainLoop.cpp
+    src/utils/TexturesLoader.cpp
     src/SDL/App.cpp
     src/SDL/Surface.cpp
     src/SDL/Texture.cpp
     src/SDL/Renderer.cpp
-    src/MainLoop.cpp
+    src/systems/RenderSystem.cpp
+    src/entities/playerEntity.cpp
 )
     
 set(HEADERS
+    src/MainLoop.hpp
+    src/utils/Vec.hpp
+    src/utils/Rect.hpp
+    src/utils/TexturesLoader.hpp
     src/SDL/App.hpp
     src/SDL/Surface.hpp
     src/SDL/Texture.hpp
     src/SDL/Renderer.hpp
-    src/MainLoop.hpp
+    src/components/Position.hpp
+    src/components/Sprite.hpp
+    src/systems/RenderSystem.hpp
+    src/entities/playerEntity.hpp
 )
 
 if (MSVC)
@@ -29,10 +39,11 @@ else()
     add_compile_options(-Wall -Wextra -Wpedantic -g)
 endif()
 
+
 find_package(SDL2 REQUIRED)
 find_package(SDL2_image REQUIRED)
 include_directories(${SDL2_INCLUDE_DIRS} ${SDL2_IMAGE_INCLUDE_DIRS})
 
-
 add_executable(2d_game ${SRCS} ${HEADERS})
+target_include_directories(2d_game PRIVATE "src/" "include/")
 target_link_libraries(2d_game ${SDL2_LIBRARIES} ${SDL2_IMAGE_LIBRARIES})
