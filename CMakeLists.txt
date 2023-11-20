@@ -8,13 +8,14 @@ set(SRCS
     src/main.cpp
     src/MainLoop.cpp
     src/utils/TexturesLoader.cpp
-    src/utils/FrameTimer.cpp
+    src/utils/Timer.cpp
     src/SDL/App.cpp
     src/SDL/Surface.cpp
     src/SDL/Texture.cpp
     src/SDL/Renderer.cpp
     src/systems/RenderSystem.cpp
     src/systems/PlayerMovement.cpp
+    src/systems/AnimationSystem.cpp
     src/entities/playerEntity.cpp
 )
     
@@ -23,7 +24,7 @@ set(HEADERS
     src/utils/Vec.hpp
     src/utils/Rect.hpp
     src/utils/TexturesLoader.hpp
-    src/utils/FrameTimer.hpp
+    src/utils/Timer.hpp
     src/SDL/App.hpp
     src/SDL/Surface.hpp
     src/SDL/Texture.hpp
@@ -31,8 +32,10 @@ set(HEADERS
     src/components/Position.hpp
     src/components/Sprite.hpp
     src/components/Player.hpp
+    src/components/Animation.hpp
     src/systems/RenderSystem.hpp
     src/systems/PlayerMovement.hpp
+    src/systems/AnimationSystem.hpp
     src/entities/playerEntity.hpp
 )
 

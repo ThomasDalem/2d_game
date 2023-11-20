@@ -2,12 +2,13 @@
 #include "MainLoop.hpp"
 #include "SDL/Texture.hpp"
 #include "utils/TexturesLoader.hpp"
-#include "utils/FrameTimer.hpp"
+#include "utils/Timer.hpp"
 
 #include "entities/playerEntity.hpp"
 
 #include "systems/RenderSystem.hpp"
 #include "systems/PlayerMovement.hpp"
+#include "systems/AnimationSystem.hpp"
 
 MainLoop::MainLoop(SDL::App &app): _app(app), _quit(false)
 {
@@ -27,8 +28,10 @@ void MainLoop::loop()
 
     makePlayer(reg, texturesLoader);
 
-    FrameTimer frameTimer;
+    Timer frameTimer;
+    Timer animTimer;
 
+    animTimer.start();
     while (!_quit) {
         frameTimer.start();
         while (SDL_PollEvent(&e) != 0) {
@@ -36,11 +39,12 @@ void MainLoop::loop()
                 _quit = true;
             }
             if (e.type == SDL_KEYDOWN) {
-                movePlayer(reg, frameTimer.getFrametime(), e);
+                movePlayer(reg, frameTimer.getDeltaTime(), e);
             }
         }
         _app.getRenderer().clear();
 
+        animateSprites(reg, animTimer.getDeltaTime());
         updateRenderSystem(_app.getRenderer(), reg);
 
         _app.getRenderer().present();

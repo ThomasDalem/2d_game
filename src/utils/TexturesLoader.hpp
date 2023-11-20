@@ -16,7 +16,6 @@ public:
 private:
     std::unordered_map<std::string, SDL::Texture> _textures;
     SDL::Renderer &_renderer;
-    SDL::Texture _test;
 };
 
 #endif // TEXTURESLOADER_HPP

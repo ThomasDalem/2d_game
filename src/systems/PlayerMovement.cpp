@@ -1,4 +1,3 @@
-#include <iostream>
 #include "PlayerMovement.hpp"
 #include "components/Player.hpp"
 #include "components/Sprite.hpp"
@@ -26,7 +25,6 @@ void movePlayer(entt::registry &reg, uint32_t frametime, SDL_Event &evt)
             break;
     }
     
-    std::cout << "Frametime: " << frametime << std::endl;
     if (frametime < 1) {
         frametime = 1; // To prevent product by 0 when frametime is lower than 1ms
     }

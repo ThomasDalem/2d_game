@@ -11,7 +11,14 @@ App::App(uint16_t screenWidth, uint16_t screenHeight) : _screenWidth(screenWidth
         throw "Init error";
     }
 
-    _window = SDL_CreateWindow("2D Game", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, _screenWidth, _screenHeight, SDL_WINDOW_SHOWN);
+    _window = SDL_CreateWindow(
+        "2D Game",
+        SDL_WINDOWPOS_UNDEFINED,
+        SDL_WINDOWPOS_UNDEFINED,
+        _screenWidth,
+        _screenHeight,
+        SDL_WINDOW_SHOWN
+    );
 
     if (_window == NULL) {
         std::cout << "Error while creating the window : " << SDL_GetError() << std::endl;
