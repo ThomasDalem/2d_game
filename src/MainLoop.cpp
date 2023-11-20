@@ -2,10 +2,12 @@
 #include "MainLoop.hpp"
 #include "SDL/Texture.hpp"
 #include "utils/TexturesLoader.hpp"
+#include "utils/FrameTimer.hpp"
 
 #include "entities/playerEntity.hpp"
 
 #include "systems/RenderSystem.hpp"
+#include "systems/PlayerMovement.hpp"
 
 MainLoop::MainLoop(SDL::App &app): _app(app), _quit(false)
 {
@@ -25,19 +27,23 @@ void MainLoop::loop()
 
     makePlayer(reg, texturesLoader);
 
-    SDL::Texture &texture = texturesLoader.getTexture("../assets/tree.png");
+    FrameTimer frameTimer;
+
     while (!_quit) {
+        frameTimer.start();
         while (SDL_PollEvent(&e) != 0) {
             if (e.type == SDL_QUIT) {
                 _quit = true;
             }
+            if (e.type == SDL_KEYDOWN) {
+                movePlayer(reg, frameTimer.getFrametime(), e);
+            }
         }
-        SDL_Rect rect = {0, 0, 200, 200};
         _app.getRenderer().clear();
 
         updateRenderSystem(_app.getRenderer(), reg);
 
-        _app.getRenderer().copy(texture, NULL, &rect);
         _app.getRenderer().present();
+
     }
 }

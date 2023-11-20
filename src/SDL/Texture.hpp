@@ -15,10 +15,14 @@ namespace SDL {
         ~Texture();
 
         SDL_Texture *getTexture();
+        int getWidth() const;
+        int getHeight() const;
         bool isLoaded() const;
 
     private:
         SDL_Texture *_texture;
+        int _width;
+        int _height;
         bool _isLoaded;
     };
     

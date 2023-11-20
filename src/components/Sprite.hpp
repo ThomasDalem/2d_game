@@ -5,7 +5,7 @@
 #include "SDL/Texture.hpp"
 
 struct Sprite {
-    Vec2f pos;
+    Vec2i pos;
     Vec2f scale;
     SDL::Texture &texture;
 };
