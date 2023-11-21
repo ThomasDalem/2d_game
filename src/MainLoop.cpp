@@ -38,9 +38,12 @@ void MainLoop::loop()
             if (e.type == SDL_QUIT) {
                 _quit = true;
             }
-            if (e.type == SDL_KEYDOWN) {
+            else if (e.type == SDL_KEYDOWN) {
                 movePlayer(reg, frameTimer.getDeltaTime(), e);
             }
+            else if (e.type == SDL_KEYUP) {
+                stopPlayer(reg, e);
+            } 
         }
         _app.getRenderer().clear();
 

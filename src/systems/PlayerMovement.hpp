@@ -5,5 +5,6 @@
 #include "entt.hpp"
 
 void movePlayer(entt::registry &reg, uint32_t frametime, SDL_Event &evt);
+void stopPlayer(entt::registry &reg, SDL_Event &evt);
 
 #endif // PLAYER_MOVEMENT_HPP

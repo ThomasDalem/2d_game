@@ -17,9 +17,12 @@ void animateSprites(entt::registry &reg, uint32_t time)
             anim.startTime = time;
         }
 
-        uint32_t timePerFrame = anim.duration / static_cast<uint32_t>(anim.steps);
-        int currentStep = std::floor((time - anim.startTime) / timePerFrame);
+        const uint32_t timePerFrame = anim.duration / static_cast<uint32_t>(anim.steps);
+        const int currentStep = std::floor((time - anim.startTime) / timePerFrame);
         sprite.rect.x = anim.startPos.x + anim.spriteSize.x * currentStep;
+        sprite.rect.y = anim.startPos.y;
+        sprite.rect.height = anim.spriteSize.y;
+        sprite.rect.width = anim.spriteSize.x;
         anim.curStep = currentStep;
     });
 }

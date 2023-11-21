@@ -21,8 +21,8 @@ void updateRenderSystem(SDL::Renderer &renderer, entt::registry &reg)
                 sprite.rect.width,
                 sprite.rect.height
             };
-            rect.w = sprite.rect.width * sprite.scale.y;
-            rect.h = sprite.rect.height * sprite.scale.x;
+            rect.w = sprite.rect.width * sprite.scale.x;
+            rect.h = sprite.rect.height * sprite.scale.y;
             renderer.copy(sprite.texture, &spriteRect, &rect);
         }
     });

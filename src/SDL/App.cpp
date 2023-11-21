@@ -27,7 +27,7 @@ App::App(uint16_t screenWidth, uint16_t screenHeight) : _screenWidth(screenWidth
 
     _renderer.initRenderer(_window);
 
-    _renderer.setDrawColor(0, 0, 0, 0);
+    _renderer.setDrawColor(50, 50, 50, 0);
 
     // Init PNG loading
     int imgFlags = IMG_INIT_PNG;

@@ -33,6 +33,7 @@ set(HEADERS
     src/components/Sprite.hpp
     src/components/Player.hpp
     src/components/Animation.hpp
+    src/components/Movement.hpp
     src/systems/RenderSystem.hpp
     src/systems/PlayerMovement.hpp
     src/systems/AnimationSystem.hpp

@@ -2,6 +2,7 @@
 #include "components/Sprite.hpp"
 #include "components/Player.hpp"
 #include "components/Animation.hpp"
+#include "components/Movement.hpp"
 
 entt::entity makePlayer(entt::registry &reg, TexturesLoader &texturesLoader)
 {
@@ -18,13 +19,14 @@ entt::entity makePlayer(entt::registry &reg, TexturesLoader &texturesLoader)
     reg.emplace<Animation>(
         e,
         0U, // startTime
-        600U, // Duration
+        1000U, // Duration
         static_cast<uint16_t>(0), // CurStep
         static_cast<uint16_t>(4), // Steps
-        Vec2i{0, 0}, // StartPos
-        Vec2i{9, 0}, // SpriteSize (for each step)
+        Vec2i{0, 40}, // StartPos
+        Vec2i{9, 21}, // SpriteSize (for each step)
         true // Play anim ?
     );
+    reg.emplace<Movement>(e, Vec2i{0, 0}, 1.f, false);
 
     return e;
 }

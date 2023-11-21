@@ -99,6 +99,16 @@ struct Vec2i {
         y *= m;
         return *this;
     }
+
+    bool operator==(const Vec2i &other)
+    {
+        return x == other.x && y == other.y;
+    }
+
+    bool operator!=(const Vec2i &other)
+    {
+        return x != other.x || y != other.y;
+    }
 };
 
 #endif // VEC_HPP
