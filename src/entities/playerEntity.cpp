@@ -26,7 +26,7 @@ entt::entity makePlayer(entt::registry &reg, TexturesLoader &texturesLoader)
         Vec2i{9, 21}, // SpriteSize (for each step)
         true // Play anim ?
     );
-    reg.emplace<Movement>(e, Vec2i{0, 0}, 1.f, false);
+    reg.emplace<Movement>(e, Vec2i{0, 0}, 2.f, false);
 
     return e;
 }

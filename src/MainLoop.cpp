@@ -9,6 +9,7 @@
 #include "systems/RenderSystem.hpp"
 #include "systems/PlayerMovement.hpp"
 #include "systems/AnimationSystem.hpp"
+#include "systems/MovementSystem.hpp"
 
 MainLoop::MainLoop(SDL::App &app): _app(app), _quit(false)
 {
@@ -39,7 +40,7 @@ void MainLoop::loop()
                 _quit = true;
             }
             else if (e.type == SDL_KEYDOWN) {
-                movePlayer(reg, frameTimer.getDeltaTime(), e);
+                movePlayer(reg, e);
             }
             else if (e.type == SDL_KEYUP) {
                 stopPlayer(reg, e);
@@ -47,6 +48,7 @@ void MainLoop::loop()
         }
         _app.getRenderer().clear();
 
+        moveSprites(reg, frameTimer.getDeltaTime());
         animateSprites(reg, animTimer.getDeltaTime());
         updateRenderSystem(_app.getRenderer(), reg);
 

@@ -16,6 +16,7 @@ set(SRCS
     src/systems/RenderSystem.cpp
     src/systems/PlayerMovement.cpp
     src/systems/AnimationSystem.cpp
+    src/systems/MovementSystem.cpp
     src/entities/playerEntity.cpp
 )
     
@@ -37,6 +38,7 @@ set(HEADERS
     src/systems/RenderSystem.hpp
     src/systems/PlayerMovement.hpp
     src/systems/AnimationSystem.hpp
+    src/systems/MovementSystem.hpp
     src/entities/playerEntity.hpp
 )
 
