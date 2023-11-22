@@ -1,5 +1,3 @@
-#include <iostream>
-
 #include "AnimationSystem.hpp"
 #include "components/Animation.hpp"
 #include "components/Sprite.hpp"

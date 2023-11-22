@@ -49,6 +49,11 @@ int Texture::getHeight() const
     return _height;
 }
 
+Vec2i Texture::getCenter() const
+{
+    return {_width / 2, _height / 2};
+}
+
 bool Texture::isLoaded() const
 {
     return _isLoaded;

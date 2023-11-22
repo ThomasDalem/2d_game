@@ -9,6 +9,7 @@ struct Sprite {
     Vec2i pos;
     Vec2f scale;
     RectI rect;
+    double angle;
     SDL::Texture &texture;
 };
 

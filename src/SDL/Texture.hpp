@@ -4,6 +4,7 @@
 #include <string>
 #include <SDL2/SDL.h>
 #include "Renderer.hpp"
+#include "utils/Vec.hpp"
 
 namespace SDL {
 
@@ -17,6 +18,7 @@ namespace SDL {
         SDL_Texture *getTexture();
         int getWidth() const;
         int getHeight() const;
+        Vec2i getCenter() const;
         bool isLoaded() const;
 
     private:

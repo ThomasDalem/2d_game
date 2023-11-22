@@ -57,6 +57,17 @@ int Renderer::copy(Texture &texture, const SDL_Rect *sourceRect, const SDL_Rect 
     return SDL_RenderCopy(_renderer, texture.getTexture(), sourceRect, destRect);
 }
 
+int Renderer::copyEx(Texture &texture,
+                     Vec2i &center,
+                     double angle,
+                     const SDL_Rect *srcRect,
+                     const SDL_Rect *dstRect,
+                     SDL_RendererFlip flip)
+{
+    const SDL_Point sdlCenter = {center.x, center.y};
+    return SDL_RenderCopyEx(_renderer, texture.getTexture(), srcRect, dstRect, angle, &sdlCenter, flip);
+}
+
 void Renderer::present()
 {
     return SDL_RenderPresent(_renderer);
