@@ -15,5 +15,6 @@ static const std::unordered_map<SDL_KeyCode, Vec2i> KEYS_DIRECTIONS = {
 
 void movePlayer(entt::registry &reg, SDL_Event &evt);
 void stopPlayer(entt::registry &reg, SDL_Event &evt);
+void turnPlayer(entt::registry &reg);
 
 #endif // PLAYER_MOVEMENT_HPP

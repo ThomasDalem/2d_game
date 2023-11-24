@@ -27,7 +27,8 @@ void MainLoop::loop()
     TexturesLoader texturesLoader(_app.getRenderer());
     SDL_Event e;
 
-    makePlayer(reg, texturesLoader);
+    entt::entity playerBody = makePlayerBody(reg, texturesLoader);
+    makePlayerLegs(reg, texturesLoader, playerBody);
 
     Timer frameTimer;
     Timer animTimer;
@@ -48,6 +49,7 @@ void MainLoop::loop()
         }
         _app.getRenderer().clear();
 
+        turnPlayer(reg);
         moveSprites(reg, frameTimer.getDeltaTime());
         animateSprites(reg, animTimer.getDeltaTime());
         updateRenderSystem(_app.getRenderer(), reg);

@@ -3,43 +3,47 @@
 #include "components/Sprite.hpp"
 #include "components/Animation.hpp"
 #include "components/Movement.hpp"
+#include "components/Relationship.hpp"
+
+#include <iostream>
 
 void movePlayer(entt::registry &reg, SDL_Event &evt)
 {
     Vec2i dir = {0, 0};
-    Vec2i animPos = {0, 0};
 
     switch (evt.key.keysym.sym)
     {
         case SDLK_z:
             dir.y = -1;
-            animPos.y = 27;
             break;
         case SDLK_s:
             dir.y = 1;
-            animPos.y = 9;
             break;
         case SDLK_d:
             dir.x = 1;
-            animPos.y = 0;
             break;
         case SDLK_q:
             dir.x = -1;
-            animPos.y = 18;
             break;
         default:
             return;
     }
 
-    auto view = reg.view<Player, Animation, Movement>();
+    auto view = reg.view<Player, Animation, Movement, Sprite>();
 
     for (const entt::entity e : view) {
         Movement &mov = view.get<Movement>(e);
         Animation &anim = view.get<Animation>(e);
+        Sprite &sprite = view.get<Sprite>(e);
+        Relationship *rel = reg.try_get<Relationship>(e);
+
         if (mov.direction != dir) {
-            anim.startPos = animPos;
             anim.curStep = anim.steps; // Will restart the animation from beginning
         }
+        if (rel && rel->parent != entt::null) {
+            sprite.hidden = false;
+        }
+
         anim.playAnim = true;
         mov.direction = dir;
         mov.move = true;
@@ -48,8 +52,7 @@ void movePlayer(entt::registry &reg, SDL_Event &evt)
 
 void stopPlayer(entt::registry &reg, SDL_Event &evt)
 {
-    if (
-        evt.key.keysym.sym == SDLK_z ||
+    if (evt.key.keysym.sym == SDLK_z ||
         evt.key.keysym.sym == SDLK_s ||
         evt.key.keysym.sym == SDLK_q ||
         evt.key.keysym.sym == SDLK_d) 
@@ -59,14 +62,32 @@ void stopPlayer(entt::registry &reg, SDL_Event &evt)
             Movement &mov = view.get<Movement>(e);
             Animation &anim = view.get<Animation>(e);
             Sprite &sprite = view.get<Sprite>(e);
+            Relationship *rel = reg.try_get<Relationship>(e);
+
+            if (rel && rel->parent != entt::null) { // if its the legs
+                sprite.hidden = true;
+            }
             if (mov.direction != KEYS_DIRECTIONS.at(static_cast<SDL_KeyCode>(evt.key.keysym.sym))) {
                 continue;
             }
+
             sprite.rect.x = 0;
-            anim.curStep = anim.steps; // Will restart the animation from beginning
-            anim.spriteSize = {9, 9};
+            anim.curStep = anim.steps; // Will restart the animation from beginningvv  
             mov.direction = {0, 0};
+            anim.playAnim = false;
             mov.move = false;
         }
     }
+}
+
+void turnPlayer(entt::registry &reg)
+{
+    auto view = reg.view<Player, Sprite>();
+
+    view.each([](Sprite &sprite){
+        int mouseX = 0;
+        int mouseY = 0;
+        SDL_GetMouseState(&mouseX, &mouseY);
+        sprite.angle = atan2(sprite.pos.y - mouseY, sprite.pos.x - mouseX) * 180 / M_PI;
+    });
 }

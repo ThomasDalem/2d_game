@@ -35,6 +35,7 @@ set(HEADERS
     src/components/Player.hpp
     src/components/Animation.hpp
     src/components/Movement.hpp
+    src/components/Relationship.hpp
     src/systems/RenderSystem.hpp
     src/systems/PlayerMovement.hpp
     src/systems/AnimationSystem.hpp
