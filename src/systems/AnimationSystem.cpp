@@ -1,6 +1,7 @@
 #include "AnimationSystem.hpp"
 #include "components/Animation.hpp"
 #include "components/Sprite.hpp"
+#include <iostream>
 
 void animateSprites(entt::registry &reg, uint32_t time)
 {
@@ -10,7 +11,7 @@ void animateSprites(entt::registry &reg, uint32_t time)
         if (anim.playAnim == false || anim.steps == 0) {
             return;
         }
-        if (anim.curStep >= anim.steps) {
+        if (anim.curStep >= anim.steps - 1) {
             anim.curStep = 0;
             anim.startTime = time;
         }
@@ -21,6 +22,7 @@ void animateSprites(entt::registry &reg, uint32_t time)
         sprite.rect.y = anim.startPos.y;
         sprite.rect.height = anim.spriteSize.y;
         sprite.rect.width = anim.spriteSize.x;
+        std::cout << sprite.rect << "\n";
         anim.curStep = currentStep;
     });
 }
