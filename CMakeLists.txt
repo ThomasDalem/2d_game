@@ -18,6 +18,7 @@ set(SRCS
     src/systems/AnimationSystem.cpp
     src/systems/MovementSystem.cpp
     src/entities/playerEntity.cpp
+    src/entities/boxEntity.cpp
 )
     
 set(HEADERS
@@ -41,6 +42,7 @@ set(HEADERS
     src/systems/AnimationSystem.hpp
     src/systems/MovementSystem.hpp
     src/entities/playerEntity.hpp
+    src/entities/boxEntity.hpp
 )
 
 if (MSVC)

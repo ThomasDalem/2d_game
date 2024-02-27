@@ -5,6 +5,7 @@
 #include "utils/Timer.hpp"
 
 #include "entities/playerEntity.hpp"
+#include "entities/boxEntity.hpp"
 
 #include "systems/RenderSystem.hpp"
 #include "systems/PlayerMovement.hpp"
@@ -29,6 +30,7 @@ void MainLoop::loop()
 
     entt::entity playerBody = makePlayerBody(reg, texturesLoader);
     makePlayerLegs(reg, texturesLoader, playerBody);
+    makeBox(reg, texturesLoader);
 
     Timer frameTimer;
     Timer animTimer;
