@@ -11,6 +11,7 @@ public:
     ~MainLoop();
 
     void loop();
+
 private:
     SDL::App &_app;
     bool _quit;

@@ -38,7 +38,7 @@ void movePlayer(entt::registry &reg, SDL_Event &evt)
         Relationship *rel = reg.try_get<Relationship>(e);
 
         if (mov.direction != dir) {
-            anim.curStep = anim.steps; // Will restart the animation from beginning
+            anim.curStep = anim.steps; // Restart the animation from the beginning
         }
         if (rel && rel->parent != entt::null) {
             sprite.hidden = false;
@@ -64,7 +64,7 @@ void stopPlayer(entt::registry &reg, SDL_Event &evt)
             Sprite &sprite = view.get<Sprite>(e);
             Relationship *rel = reg.try_get<Relationship>(e);
 
-            if (rel && rel->parent != entt::null) { // if its the legs
+            if (rel && rel->parent != entt::null) { // if it's the legs
                 sprite.hidden = true;
             }
             if (mov.direction != KEYS_DIRECTIONS.at(static_cast<SDL_KeyCode>(evt.key.keysym.sym))) {
@@ -72,7 +72,7 @@ void stopPlayer(entt::registry &reg, SDL_Event &evt)
             }
 
             sprite.rect.x = 0;
-            anim.curStep = anim.steps; // Will restart the animation from beginningvv  
+            anim.curStep = anim.steps; // Restart the animation from the beginning
             mov.direction = {0, 0};
             anim.playAnim = false;
             mov.move = false;
@@ -84,10 +84,15 @@ void turnPlayer(entt::registry &reg)
 {
     auto view = reg.view<Player, Sprite>();
 
-    view.each([](Sprite &sprite){
+    for (const entt::entity e : view) {
+        Sprite &sprite = view.get<Sprite>(e);
+
         int mouseX = 0;
         int mouseY = 0;
         SDL_GetMouseState(&mouseX, &mouseY);
-        sprite.angle = atan2(sprite.pos.y - mouseY, sprite.pos.x - mouseX) * 180 / M_PI;
-    });
+        const int centerX = sprite.pos.x + (sprite.rect.width * sprite.scale.x) / 2;
+        const int centerY = sprite.pos.y + (sprite.rect.height * sprite.scale.y) / 2;
+
+        sprite.angle = atan2(centerY - mouseY, centerX - mouseX) * 180.0 / M_PI;
+    }
 }

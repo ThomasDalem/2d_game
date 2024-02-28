@@ -5,8 +5,9 @@
 #include "SDL2/SDL.h"
 #include "entt.hpp"
 #include "utils/Vec.hpp"
+#include "SDL/Renderer.hpp"
 
-static const std::unordered_map<SDL_KeyCode, Vec2i> KEYS_DIRECTIONS = {
+static const std::unordered_map<SDL_KeyCode, Vec2i> KEYS_DIRECTIONS {
     {SDLK_z, {0, -1}},
     {SDLK_s, {0, 1}},
     {SDLK_q, {-1, 0}},

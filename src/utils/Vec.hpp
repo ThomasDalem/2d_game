@@ -1,6 +1,8 @@
 #ifndef VEC_HPP
 #define VEC_HPP
 
+#include <SDL2/SDL_rect.h>
+
 struct Vec2f {
     float x;
     float y;
@@ -48,6 +50,11 @@ struct Vec2f {
         x *= m;
         y *= m;
         return *this;
+    }
+
+    operator SDL_Point()
+    {
+        return SDL_Point {static_cast<int>(x), static_cast<int>(y)};
     }
 };
 
@@ -108,6 +115,11 @@ struct Vec2i {
     bool operator!=(const Vec2i &other)
     {
         return x != other.x || y != other.y;
+    }
+
+    operator SDL_Point()
+    {
+        return SDL_Point {x, y};
     }
 };
 

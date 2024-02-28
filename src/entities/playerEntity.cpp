@@ -13,7 +13,7 @@ entt::entity makePlayerBody(entt::registry &reg, TexturesLoader &texturesLoader)
     reg.emplace<Sprite>(
         e,
         false, // Hidden
-        Vec2i{0, 0}, // Pos on screen
+        Vec2i{300, 300}, // Pos on screen
         Vec2f{5.f, 5.f}, // Scale
         RectI{0, 16, 18, 19}, // Spritesheet rect -1 for whole sprite
         0.0, // Angle of sprite
@@ -43,7 +43,7 @@ entt::entity makePlayerLegs(entt::registry &reg, TexturesLoader &texturesLoader,
     reg.emplace<Sprite>(
         e,
         true, // Hidden
-        Vec2i{0, 0}, // Pos on screen
+        Vec2i{300, 300}, // Pos on screen
         Vec2f{5.f, 5.f}, // Scale
         RectI{0, 0, 18, 15}, // Spritesheet rect -1 for whole sprite
         0.0, // Angle of sprite

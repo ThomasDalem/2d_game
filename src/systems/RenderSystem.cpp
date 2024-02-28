@@ -9,15 +9,16 @@ void updateRenderSystem(SDL::Renderer &renderer, entt::registry &reg)
         if (sprite.hidden) {
             return;
         }
+        const int width = sprite.rect.width == -1 ? sprite.texture.getWidth() : sprite.rect.width; // TODO: create value in sprite for texture size
+        const int height = sprite.rect.height == -1 ? sprite.texture.getHeight() : sprite.rect.height; // TODO: create value in sprite for texture size
         SDL_Rect rect = {
             sprite.pos.x,
             sprite.pos.y,
-            static_cast<int>(sprite.texture.getWidth() * sprite.scale.x),
-            static_cast<int>(sprite.texture.getHeight() * sprite.scale.y)
+            static_cast<int>(width * sprite.scale.x),
+            static_cast<int>(height * sprite.scale.y)
         };
         if (sprite.rect.width < 0 || sprite.rect.height < 0) {
-            Vec2i center = {rect.w / 2, rect.h / 2};
-            renderer.copyEx(sprite.texture, center, sprite.angle, NULL, &rect, sprite.flip);
+            renderer.copyEx(sprite.texture, sprite.angle, NULL, &rect, sprite.flip);
         } else {
             SDL_Rect spriteRect = {
                 sprite.rect.x,
@@ -27,9 +28,8 @@ void updateRenderSystem(SDL::Renderer &renderer, entt::registry &reg)
             };
             rect.w = sprite.rect.width * sprite.scale.x;
             rect.h = sprite.rect.height * sprite.scale.y;
-            Vec2i center = {rect.w / 2, rect.h / 2};
 
-            renderer.copyEx(sprite.texture, center, sprite.angle, &spriteRect, &rect, sprite.flip);
+            renderer.copyEx(sprite.texture, sprite.angle, &spriteRect, &rect, sprite.flip);
         }
     });
 }

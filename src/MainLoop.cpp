@@ -12,6 +12,9 @@
 #include "systems/AnimationSystem.hpp"
 #include "systems/MovementSystem.hpp"
 
+#include "components/Player.hpp"
+#include "components/Sprite.hpp"
+
 MainLoop::MainLoop(SDL::App &app): _app(app), _quit(false)
 {
 
@@ -49,6 +52,7 @@ void MainLoop::loop()
                 stopPlayer(reg, e);
             } 
         }
+        _app.getRenderer().setDrawColor(50, 50, 50, 0);
         _app.getRenderer().clear();
 
         turnPlayer(reg);
