@@ -123,4 +123,72 @@ struct Vec2i {
     }
 };
 
+
+struct Vec2d {
+    double x;
+    double y;
+
+    Vec2d operator+(const Vec2d &other) const
+    {
+        Vec2d newVec;
+        newVec.x = x + other.x;
+        newVec.y = y + other.y;
+        return newVec;
+    }
+
+    Vec2d operator-(const Vec2d &other) const
+    {
+        Vec2d newVec;
+        newVec.x = x - other.x;
+        newVec.y = y - other.y;
+        return newVec;
+    }
+
+    Vec2d &operator+=(const Vec2d &other)
+    {
+        x += other.x;
+        y += other.y;
+        return *this;
+    }
+
+    Vec2d &operator-=(const Vec2d &other)
+    {
+        x -= other.x;
+        y -= other.y;
+        return *this;
+    }
+
+    Vec2d operator*(int m) const
+    {
+        Vec2d newVec;
+        newVec.x = x * m;
+        newVec.y = y * m;
+        return newVec;
+    }
+
+    Vec2d &operator*=(int m)
+    {
+        x *= m;
+        y *= m;
+        return *this;
+    }
+
+    Vec2d &operator+=(const Vec2i &other)
+    {
+        x += static_cast<double>(other.x);
+        y += static_cast<double>(other.y);
+        return *this;
+    }
+
+    bool operator==(const Vec2d &other)
+    {
+        return x == other.x && y == other.y;
+    }
+
+    bool operator!=(const Vec2d &other)
+    {
+        return x != other.x || y != other.y;
+    }
+};
+
 #endif // VEC_HPP

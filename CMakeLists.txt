@@ -17,10 +17,11 @@ set(SRCS
     src/systems/PlayerMovement.cpp
     src/systems/AnimationSystem.cpp
     src/systems/MovementSystem.cpp
+    src/systems/CollisionSystem.cpp
     src/entities/playerEntity.cpp
     src/entities/boxEntity.cpp
 )
-    
+
 set(HEADERS
     src/MainLoop.hpp
     src/utils/Vec.hpp
@@ -37,10 +38,12 @@ set(HEADERS
     src/components/Animation.hpp
     src/components/Movement.hpp
     src/components/Relationship.hpp
+    src/components/Collider.hpp
     src/systems/RenderSystem.hpp
     src/systems/PlayerMovement.hpp
     src/systems/AnimationSystem.hpp
     src/systems/MovementSystem.hpp
+    src/systems/CollisionSystem.hpp
     src/entities/playerEntity.hpp
     src/entities/boxEntity.hpp
 )

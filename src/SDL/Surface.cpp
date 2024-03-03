@@ -26,7 +26,7 @@ Surface::Surface(const std::string &filepath, SDL_Surface *winSurface) : _isLoad
 
 Surface::~Surface()
 {
-    if (_surface) {
+    if (_surface && _isLoaded) {
         SDL_FreeSurface(_surface);
     }
 }

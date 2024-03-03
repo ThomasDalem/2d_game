@@ -5,30 +5,35 @@ void updateRenderSystem(SDL::Renderer &renderer, entt::registry &reg)
 {
     const auto view = reg.view<Sprite>();
 
-    view.each([&renderer](const Sprite &sprite){
+    view.each([&renderer](Sprite &sprite){
         if (sprite.hidden) {
             return;
         }
-        const int width = sprite.rect.width == -1 ? sprite.texture.getWidth() : sprite.rect.width; // TODO: create value in sprite for texture size
-        const int height = sprite.rect.height == -1 ? sprite.texture.getHeight() : sprite.rect.height; // TODO: create value in sprite for texture size
+
+        if (sprite.textureRect.height == -1) {
+            sprite.rect.width = sprite.texture.getWidth() * sprite.scale.x;
+            sprite.rect.height = sprite.texture.getHeight() * sprite.scale.y;
+        } else {
+            sprite.rect.width = sprite.textureRect.width * sprite.scale.x;
+            sprite.rect.height = sprite.textureRect.height * sprite.scale.y;
+        }
+
         SDL_Rect rect = {
             sprite.pos.x,
             sprite.pos.y,
-            static_cast<int>(width * sprite.scale.x),
-            static_cast<int>(height * sprite.scale.y)
+            sprite.rect.width,
+            sprite.rect.height
         };
-        if (sprite.rect.width < 0 || sprite.rect.height < 0) {
+
+        if (sprite.textureRect.width < 0 || sprite.textureRect.height < 0) {
             renderer.copyEx(sprite.texture, sprite.angle, NULL, &rect, sprite.flip);
         } else {
             SDL_Rect spriteRect = {
-                sprite.rect.x,
-                sprite.rect.y,
-                sprite.rect.width,
-                sprite.rect.height
+                sprite.textureRect.x,
+                sprite.textureRect.y,
+                sprite.textureRect.width,
+                sprite.textureRect.height
             };
-            rect.w = sprite.rect.width * sprite.scale.x;
-            rect.h = sprite.rect.height * sprite.scale.y;
-
             renderer.copyEx(sprite.texture, sprite.angle, &spriteRect, &rect, sprite.flip);
         }
     });

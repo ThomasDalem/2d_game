@@ -9,6 +9,7 @@ struct Sprite {
     bool hidden;
     Vec2i pos;
     Vec2f scale;
+    RectI textureRect;
     RectI rect;
     double angle;
     SDL_RendererFlip flip;

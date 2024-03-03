@@ -37,7 +37,7 @@ namespace SDL {
 
             void present();
 
-        private:
+        protected:
             SDL_Renderer *_renderer;
     };
 

@@ -71,7 +71,7 @@ void stopPlayer(entt::registry &reg, SDL_Event &evt)
                 continue;
             }
 
-            sprite.rect.x = 0;
+            sprite.textureRect.x = 0;
             anim.curStep = anim.steps; // Restart the animation from the beginning
             mov.direction = {0, 0};
             anim.playAnim = false;
@@ -90,8 +90,8 @@ void turnPlayer(entt::registry &reg)
         int mouseX = 0;
         int mouseY = 0;
         SDL_GetMouseState(&mouseX, &mouseY);
-        const int centerX = sprite.pos.x + (sprite.rect.width * sprite.scale.x) / 2;
-        const int centerY = sprite.pos.y + (sprite.rect.height * sprite.scale.y) / 2;
+        const int centerX = sprite.pos.x + sprite.rect.width / 2;
+        const int centerY = sprite.pos.y + sprite.rect.height / 2;
 
         sprite.angle = atan2(centerY - mouseY, centerX - mouseX) * 180.0 / M_PI;
     }

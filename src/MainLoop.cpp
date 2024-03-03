@@ -11,6 +11,7 @@
 #include "systems/PlayerMovement.hpp"
 #include "systems/AnimationSystem.hpp"
 #include "systems/MovementSystem.hpp"
+#include "systems/CollisionSystem.hpp"
 
 #include "components/Player.hpp"
 #include "components/Sprite.hpp"
@@ -59,6 +60,7 @@ void MainLoop::loop()
         moveSprites(reg, frameTimer.getDeltaTime());
         animateSprites(reg, animTimer.getDeltaTime());
         updateRenderSystem(_app.getRenderer(), reg);
+        handleCollisions(reg, _app.getRenderer());
 
         _app.getRenderer().present();
 
