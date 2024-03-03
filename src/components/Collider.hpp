@@ -3,11 +3,13 @@
 
 #include <vector>
 #include "utils/Vec.hpp"
+#include "SDL2/SDL_pixels.h"
 
 struct Collider
 {
     std::vector<Vec2d> vertices;
     bool display;
+    SDL_Color drawColor {255, 255, 255, 0};
 };
 
 

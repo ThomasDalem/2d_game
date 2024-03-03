@@ -5,18 +5,6 @@
 #include "components/Collider.hpp"
 #include "utils/Rect.hpp"
 
-std::vector<Vec2d> getRectVertices(const RectI &rect)
-{
-    std::vector<Vec2d> vertices;
-
-    vertices.push_back({static_cast<double>(rect.x), static_cast<double>(rect.y)});
-    vertices.push_back({static_cast<double>(rect.x), static_cast<double>(rect.y + rect.width)});
-    vertices.push_back({static_cast<double>(rect.x + rect.height), static_cast<double>(rect.y)});
-    vertices.push_back({static_cast<double>(rect.x + rect.height), static_cast<double>(rect.y + rect.width)});
-
-    return vertices;
-}
-
 Vec2d normalize(const Vec2d &v)
 {
     double length = std::sqrt(v.x * v.x + v.y * v.y);
@@ -99,7 +87,7 @@ void displayCollider(Collider &collider, SDL::Renderer &renderer)
     SDL_FPoint point {static_cast<float>(collider.vertices[collider.vertices.size() - 1].x), static_cast<float>(collider.vertices[0].y)};
     points.push_back(point);
 
-    renderer.setDrawColor(225, 255, 255, 0);
+    renderer.setDrawColor(collider.drawColor.r, collider.drawColor.g, collider.drawColor.b, collider.drawColor.a);
     SDL_RenderDrawLinesF(renderer.getRenderer(), points.data(), collider.vertices.size() + 1);
     renderer.setDrawColor(50, 50, 50, 0);
 }
@@ -116,9 +104,13 @@ void handleCollisions(entt::registry &reg, SDL::Renderer &renderer)
             if (e == other) {
                 continue;
             }
-            Collider &otherCollider = reg.get<Collider>(e);
+            Collider &otherCollider = reg.get<Collider>(other);
             if (isColliding(collider.vertices, otherCollider.vertices)) {
-                std::cout << "Collision" << std::endl;
+                collider.drawColor = {255, 0, 0, 0};
+                otherCollider.drawColor = {255, 0, 0, 0};
+            } else {
+                collider.drawColor = {255, 255, 255, 0};
+                otherCollider.drawColor = {255, 255, 255, 0};
             }
         }
     }

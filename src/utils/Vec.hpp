@@ -2,6 +2,7 @@
 #define VEC_HPP
 
 #include <SDL2/SDL_rect.h>
+#include <ostream>
 
 struct Vec2f {
     float x;
@@ -190,5 +191,11 @@ struct Vec2d {
         return x != other.x || y != other.y;
     }
 };
+
+inline std::ostream &operator<< (std::ostream &os, const Vec2d &v)
+{
+    os << "x: " << v.x << "\ty: " << v.y;
+    return os;
+}
 
 #endif // VEC_HPP
