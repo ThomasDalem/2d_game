@@ -44,7 +44,7 @@ entt::entity makePlayerBody(entt::registry &reg, TexturesLoader &texturesLoader)
         {x + spriteSizeX, y + spriteSizeY},
         {x, y + spriteSizeY}
     };
-    reg.emplace<Collider>(e, colliderVertices, true);
+    reg.emplace<Collider>(e, colliderVertices, true, true);
 
     return e;
 }

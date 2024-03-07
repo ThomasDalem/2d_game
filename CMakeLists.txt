@@ -9,6 +9,7 @@ set(SRCS
     src/MainLoop.cpp
     src/utils/TexturesLoader.cpp
     src/utils/Timer.cpp
+    src/utils/Vec.cpp
     src/SDL/App.cpp
     src/SDL/Surface.cpp
     src/SDL/Texture.cpp
