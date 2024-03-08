@@ -8,7 +8,7 @@
 
 Vec2d getPolygonCenter(const std::vector<Vec2d> &vertices)
 {
-    Vec2d center;
+    Vec2d center = {0.0, 0.0};
 
     for (const Vec2d &vertex : vertices) {
         center += vertex;
@@ -37,21 +37,22 @@ std::vector<Vec2d> getAxes(const std::vector<Vec2d> &vertices)
     return axes;
 }
 
-int dotProduct(const Vec2d &a, const Vec2d &b)
+double dotProduct(const Vec2d &a, const Vec2d &b)
 {
     return a.x * b.x + a.y * b.y;
 }
 
 Vec2d getProjection(const Vec2d &axe, const std::vector<Vec2d> &vertices)
 {
-    double min = dotProduct(axe, vertices[0]);
-    double max = min;
+    double min = std::numeric_limits<double>::infinity();
+    double max = -std::numeric_limits<double>::infinity();
 
     for (size_t i = 0; i < vertices.size(); i++) {
         const double p = dotProduct(axe, vertices[i]);
         if (p < min) {
             min = p;
-        } else if (p > max) {
+        }
+        if (p > max) {
             max = p;
         }
     }
@@ -66,42 +67,32 @@ bool areOverlapping(const Vec2d &a, const Vec2d &b)
 
 double getOverlapLength(const Vec2d &a, const Vec2d &b)
 {
-    return std::min(a.y, b.y) - std::max(a.x, b.x);
+    return std::abs(std::min(a.y, b.y) - std::max(a.x, b.x));
 }
 
 bool isColliding(const std::vector<Vec2d> &a, const std::vector<Vec2d> &b, Vec2d &mtv)
 {
-    std::vector<Vec2d> axesA = getAxes(a);
+    std::vector<Vec2d> axes = getAxes(a);
     std::vector<Vec2d> axesB = getAxes(b);
+    axes.insert(axes.end(), axesB.begin(), axesB.end());
     double minOverlap = std::numeric_limits<double>::infinity();
 
-    for (const Vec2d &axis : axesA) {
+    for (const Vec2d &axis : axes) {
         Vec2d proj1 = getProjection(axis, a);
         Vec2d proj2 = getProjection(axis, b);
 
         if (areOverlapping(proj1, proj2) == false) {
             return false;
-        } else {
+        }
+        else {
             double overlapLength = getOverlapLength(proj1, proj2);
             if (overlapLength < minOverlap) {
                 minOverlap = overlapLength;
-                mtv = axis; //* minOverlap;
+                mtv = axis * minOverlap;
             }
         }
     }
-    for (const Vec2d &axis : axesB) {
-        Vec2d proj1 = getProjection(axis, a);
-        Vec2d proj2 = getProjection(axis, b);
 
-        if (areOverlapping(proj1, proj2) == false) {
-            double overlapLength = getOverlapLength(proj1, proj2);
-            if (overlapLength < minOverlap) {
-                minOverlap = overlapLength;
-                mtv = axis; //* minOverlap;
-            }
-            return false;
-        }
-    }
     return true;
 }
 
@@ -140,7 +131,11 @@ void moveSprite(const Vec2d &length, entt::registry &reg, entt::entity e)
     sprite->pos += length;
     sprite->rect.x += length.x;
     sprite->rect.y += length.y;
-    //std::cout << "Moving sprite " << length << "\n";
+}
+
+Vec2d testSub(const Vec2d &a, const Vec2d &b)
+{
+    return {a.x - b.x, a.y - b.y};
 }
 
 void handleCollisions(entt::registry &reg, SDL::Renderer &renderer)
@@ -148,31 +143,33 @@ void handleCollisions(entt::registry &reg, SDL::Renderer &renderer)
     auto view = reg.view<Collider>();
     for (const entt::entity e : view) {
         Collider &collider = reg.get<Collider>(e);
+
         if (collider.display == true) {
             displayCollider(collider, renderer);
         }
+
         for (const entt::entity other : view) {
             if (e == other) {
                 continue;
             }
             Collider &otherCollider = reg.get<Collider>(other);
             Vec2d mtv;
+
             if (collider.canMove && isColliding(collider.vertices, otherCollider.vertices, mtv)) {
                 collider.drawColor = {255, 0, 0, 0};
                 otherCollider.drawColor = {255, 0, 0, 0};
-                std::cout << mtv << "\n";
-                int test = dotProduct(getPolygonCenter(collider.vertices) - getPolygonCenter(otherCollider.vertices), mtv);
-                std::cout << test << "\n";
-                if (test < 0) {
-                    //std::cout << "WOOOOOOOOOOOOOOOW";
+
+                const Vec2d centerA = getPolygonCenter(collider.vertices);
+                const Vec2d centerB = getPolygonCenter(otherCollider.vertices);
+
+                if (dotProduct(centerA - centerB, mtv) < 0.0) {
                     mtv = {-mtv.x, -mtv.y};
-                } else {
-                    //std::cout << ">= 0\n";
-                    mtv = {mtv.x, mtv.y};
                 }
+
                 moveCollider(collider.vertices, mtv);
                 moveSprite(mtv, reg, e);
-            } else {
+            }
+            else {
                 collider.drawColor = {255, 255, 255, 0};
                 otherCollider.drawColor = {255, 255, 255, 0};
             }

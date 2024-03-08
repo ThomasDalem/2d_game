@@ -23,7 +23,6 @@ Texture::Texture(const std::string &path, Renderer &renderer) :
     if (SDL_QueryTexture(_texture, NULL, NULL, &_width, &_height) < 0) {
         std::cout << "Error while getting information on texture: " << SDL_GetError() << std::endl;
     }
-    std::cout << "Width: " << _width << " height: " << _height << std::endl;
     _isLoaded = true;
 }
 
