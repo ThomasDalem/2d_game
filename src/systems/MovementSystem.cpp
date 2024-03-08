@@ -1,7 +1,6 @@
 #include "MovementSystem.hpp"
 #include "components/Movement.hpp"
-#include "components/Sprite.hpp"
-#include "components/Collider.hpp"
+#include "utils/TransformUtils.hpp"
 
 void moveSprites(entt::registry &reg, uint32_t deltaTime)
 {
@@ -14,17 +13,7 @@ void moveSprites(entt::registry &reg, uint32_t deltaTime)
         Movement &mov = reg.get<Movement>(e);
         Sprite &sprite = reg.get<Sprite>(e);
 
-        const Vec2i posDelta = mov.direction * mov.speed * deltaTime;
-        sprite.pos += posDelta;
-        sprite.rect.x = sprite.pos.x;
-        sprite.rect.y = sprite.pos.y;
-
-        Collider *collider = reg.try_get<Collider>(e);
-
-        if (collider != nullptr) {
-            for (Vec2d &vertex : collider->vertices) {
-                vertex += posDelta;
-            }
-        }
+        const Vec2d posDelta = mov.direction * mov.speed * deltaTime;
+        translate(reg, e, posDelta);
     }
 }

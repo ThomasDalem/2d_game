@@ -35,7 +35,7 @@ void movePlayer(entt::registry &reg, SDL_Event &evt)
         Movement &mov = view.get<Movement>(e);
         Animation &anim = view.get<Animation>(e);
         Sprite &sprite = view.get<Sprite>(e);
-        Relationship *rel = reg.try_get<Relationship>(e);
+        Parent *rel = reg.try_get<Parent>(e);
 
         if (mov.direction != dir) {
             anim.curStep = anim.steps; // Restart the animation from the beginning
@@ -62,7 +62,7 @@ void stopPlayer(entt::registry &reg, SDL_Event &evt)
             Movement &mov = view.get<Movement>(e);
             Animation &anim = view.get<Animation>(e);
             Sprite &sprite = view.get<Sprite>(e);
-            Relationship *rel = reg.try_get<Relationship>(e);
+            Parent *rel = reg.try_get<Parent>(e);
 
             if (rel && rel->parent != entt::null) { // if it's the legs
                 sprite.hidden = true;

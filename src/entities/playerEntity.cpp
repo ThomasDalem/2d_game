@@ -75,7 +75,7 @@ entt::entity makePlayerLegs(entt::registry &reg, TexturesLoader &texturesLoader,
         false // Play anim ?);
     );
     reg.emplace<Movement>(e, Vec2i{0, 0}, 2.f, false);
-    reg.emplace<Relationship>(e, playerBody);
+    reg.emplace<Parent>(e, playerBody);
 
     return e;
 }

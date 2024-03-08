@@ -9,7 +9,7 @@ set(SRCS
     src/MainLoop.cpp
     src/utils/TexturesLoader.cpp
     src/utils/Timer.cpp
-    src/utils/Vec.cpp
+    src/utils/TransformUtils.cpp
     src/SDL/App.cpp
     src/SDL/Surface.cpp
     src/SDL/Texture.cpp
@@ -29,6 +29,7 @@ set(HEADERS
     src/utils/Rect.hpp
     src/utils/TexturesLoader.hpp
     src/utils/Timer.hpp
+    src/utils/TransformUtils.hpp
     src/SDL/App.hpp
     src/SDL/Surface.hpp
     src/SDL/Texture.hpp

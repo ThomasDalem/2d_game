@@ -4,79 +4,63 @@
 #include <SDL2/SDL_rect.h>
 #include <ostream>
 
-struct Vec2d;
+template<typename T>
+struct Vec2 {
+    T x;
+    T y;
 
-struct Vec2f {
-    float x;
-    float y;
+    Vec2<T>() = default;
+    Vec2<T>(T aX, T aY): x(aX), y(aY) {}
 
-    Vec2f operator+(const Vec2f &other) const;
-    Vec2f operator-(const Vec2f &other) const;
-    Vec2f operator*(int m) const;
+    template<typename U>
+    Vec2<T>(const Vec2<U> &other): x(static_cast<T>(other.x)), y(static_cast<T>(other.y)) {}
 
-    Vec2f &operator+=(const Vec2f &other);
-    Vec2f &operator-=(const Vec2f &other);
-    Vec2f &operator*=(int m);
+    Vec2<T> operator+(const Vec2<T> &other) const { return { x + other.x, y + other.y }; }
+    Vec2<T> operator-(const Vec2<T> &other) const { return { x - other.x, y - other.y }; };
+    Vec2<T> operator*(int m) const { return { x * m, y * m }; };
 
-    bool operator==(const Vec2f &other);
-    bool operator!=(const Vec2f &other);
+    Vec2<T> &operator+=(const Vec2<T> &other)
+    {
+        x += other.x;
+        y += other.y;
+        return *this;
+    }
+    Vec2<T> &operator-=(const Vec2<T> &other)
+    {
+        x -= other.x;
+        y -= other.y;
+        return *this;
+    }
+    Vec2<T> &operator*=(int m)
+    {
+        x *= m;
+        y *= m;
+        return *this;
+    }
 
-    operator SDL_Point();
+    bool operator==(const Vec2<T> &other) { return x == other.x && y == other.y; }
+    bool operator!=(const Vec2<T> &other) { return x != other.x || y != other.y; }
+
+    template<typename U>
+    Vec2<T> &operator=(const Vec2<U> &other)
+    {
+        x = static_cast<T>(other.x);
+        y = static_cast<T>(other.y);
+        return *this;
+    }
+
+    operator SDL_Point() const { return { static_cast<int>(x), static_cast<int>(y) }; }
 };
 
-struct Vec2i {
-    int x;
-    int y;
-
-    Vec2i operator+(const Vec2i &other) const;
-    Vec2i operator-(const Vec2i &other) const;
-    Vec2i operator*(int m) const;
-
-    Vec2i &operator+=(const Vec2i &other);
-    Vec2i &operator+=(const Vec2d &other);
-    Vec2i &operator-=(const Vec2i &other);
-    Vec2i &operator*=(int m);
-
-    bool operator==(const Vec2i &other);
-    bool operator!=(const Vec2i &other);
-
-    operator SDL_Point();
-};
-
-
-struct Vec2d {
-    double x;
-    double y;
-
-    Vec2d operator+(const Vec2d &other) const;
-    Vec2d operator-(const Vec2d &other) const;
-    Vec2d operator*(int m) const;
-
-    Vec2d &operator+=(const Vec2d &other);
-    Vec2d &operator+=(const Vec2i &other);
-    Vec2d &operator-=(const Vec2d &other);
-    Vec2d &operator*=(int m);
-
-    bool operator==(const Vec2d &other);
-    bool operator!=(const Vec2d &other);
-};
-
-inline std::ostream &operator<< (std::ostream &os, const Vec2f &v)
+template<typename T>
+inline std::ostream &operator<< (std::ostream &os, const Vec2<T> &v)
 {
     os << "x: " << v.x << "\ty: " << v.y;
     return os;
 }
 
-inline std::ostream &operator<< (std::ostream &os, const Vec2i &v)
-{
-    os << "x: " << v.x << "\ty: " << v.y;
-    return os;
-}
-
-inline std::ostream &operator<< (std::ostream &os, const Vec2d &v)
-{
-    os << "x: " << v.x << "\ty: " << v.y;
-    return os;
-}
+using Vec2i = Vec2<int>;
+using Vec2d = Vec2<double>;
+using Vec2f = Vec2<float>;
 
 #endif // VEC_HPP
