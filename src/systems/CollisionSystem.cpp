@@ -142,6 +142,7 @@ Vec2d testSub(const Vec2d &a, const Vec2d &b)
 void handleCollisions(entt::registry &reg, SDL::Renderer &renderer)
 {
     auto view = reg.view<Collider>();
+
     for (const entt::entity e : view) {
         Collider &collider = reg.get<Collider>(e);
 
@@ -167,9 +168,9 @@ void handleCollisions(entt::registry &reg, SDL::Renderer &renderer)
                     mtv = {-mtv.x, -mtv.y};
                 }
 
-                moveCollider(collider.vertices, mtv);
-                moveSprite(mtv, reg, e);
-                //translate(reg, e, mtv);
+                //moveCollider(collider.vertices, mtv);
+                //moveSprite(mtv, reg, e);
+                translate(reg, e, mtv);
             }
             else {
                 collider.drawColor = {255, 255, 255, 0};

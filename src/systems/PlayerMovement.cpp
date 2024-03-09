@@ -33,7 +33,7 @@ void movePlayer(entt::registry &reg, SDL_Event &evt)
         Movement &mov = view.get<Movement>(e);
         Animation &anim = view.get<Animation>(e);
         Sprite &sprite = view.get<Sprite>(e);
-        Parent *rel = reg.try_get<Parent>(e);
+        const Parent *rel = reg.try_get<Parent>(e);
 
         if (rel && rel->parent != entt::null) {
             sprite.hidden = false;
@@ -71,10 +71,10 @@ void stopPlayer(entt::registry &reg, SDL_Event &evt)
         if (evt.key.keysym.sym == SDLK_s && mov.direction.y != -1) {
             mov.direction.y = 0;
         }
-        if (evt.key.keysym.sym == SDLK_d && mov.direction.y != -1) {
+        if (evt.key.keysym.sym == SDLK_d && mov.direction.x != -1) {
             mov.direction.x = 0;
         }
-        if (evt.key.keysym.sym == SDLK_q && mov.direction.y != 1) {
+        if (evt.key.keysym.sym == SDLK_q && mov.direction.x != 1) {
             mov.direction.x = 0;
         }
 
