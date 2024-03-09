@@ -5,6 +5,7 @@
 #include "components/Collider.hpp"
 #include "components/Sprite.hpp"
 #include "utils/Rect.hpp"
+#include "utils/TransformUtils.hpp"
 
 Vec2d getPolygonCenter(const std::vector<Vec2d> &vertices)
 {
@@ -168,6 +169,7 @@ void handleCollisions(entt::registry &reg, SDL::Renderer &renderer)
 
                 moveCollider(collider.vertices, mtv);
                 moveSprite(mtv, reg, e);
+                //translate(reg, e, mtv);
             }
             else {
                 collider.drawColor = {255, 255, 255, 0};

@@ -5,8 +5,6 @@
 #include "components/Movement.hpp"
 #include "components/Relationship.hpp"
 
-#include <iostream>
-
 void movePlayer(entt::registry &reg, SDL_Event &evt)
 {
     Vec2i dir = {0, 0};
@@ -37,46 +35,63 @@ void movePlayer(entt::registry &reg, SDL_Event &evt)
         Sprite &sprite = view.get<Sprite>(e);
         Parent *rel = reg.try_get<Parent>(e);
 
-        if (mov.direction != dir) {
-            anim.curStep = anim.steps; // Restart the animation from the beginning
-        }
         if (rel && rel->parent != entt::null) {
             sprite.hidden = false;
+            mov.move = true;
+            anim.playAnim = true;
+            continue; // will be moved as child of player
         }
 
-        anim.playAnim = true;
-        mov.direction = dir;
-        mov.move = true;
+        if (dir.x != mov.direction.x) {
+            mov.direction.x += dir.x;
+        }
+        if (dir.y != mov.direction.y) {
+            mov.direction.y += dir.y;
+        }
+        if (mov.direction.x != 0 || mov.direction.y != 0) {
+            mov.move = true;
+            anim.playAnim = true;
+        }
     }
 }
 
 void stopPlayer(entt::registry &reg, SDL_Event &evt)
 {
-    if (evt.key.keysym.sym == SDLK_z ||
-        evt.key.keysym.sym == SDLK_s ||
-        evt.key.keysym.sym == SDLK_q ||
-        evt.key.keysym.sym == SDLK_d) 
-    {
-        auto view = reg.view<Player, Sprite, Animation, Movement>();
-        for (const entt::entity e : view) {
-            Movement &mov = view.get<Movement>(e);
-            Animation &anim = view.get<Animation>(e);
-            Sprite &sprite = view.get<Sprite>(e);
-            Parent *rel = reg.try_get<Parent>(e);
+    auto view = reg.view<Player, Sprite, Animation, Movement>();
 
-            if (rel && rel->parent != entt::null) { // if it's the legs
-                sprite.hidden = true;
-            }
-            if (mov.direction != KEYS_DIRECTIONS.at(static_cast<SDL_KeyCode>(evt.key.keysym.sym))) {
-                continue;
-            }
+    for (const entt::entity e : view) {
+        Movement &mov = view.get<Movement>(e);
+        Animation &anim = view.get<Animation>(e);
+        Sprite &sprite = view.get<Sprite>(e);
+        Parent *rel = reg.try_get<Parent>(e);
 
-            sprite.textureRect.x = 0;
-            anim.curStep = anim.steps; // Restart the animation from the beginning
-            mov.direction = {0, 0};
-            anim.playAnim = false;
-            mov.move = false;
+        if (evt.key.keysym.sym == SDLK_z && mov.direction.y != 1) {
+            mov.direction.y = 0;
         }
+        if (evt.key.keysym.sym == SDLK_s && mov.direction.y != -1) {
+            mov.direction.y = 0;
+        }
+        if (evt.key.keysym.sym == SDLK_d && mov.direction.y != -1) {
+            mov.direction.x = 0;
+        }
+        if (evt.key.keysym.sym == SDLK_q && mov.direction.y != 1) {
+            mov.direction.x = 0;
+        }
+
+        if (mov.direction.x != 0 || mov.direction.y != 0) {
+            continue;
+        }
+
+        sprite.textureRect.x = 0;
+        anim.curStep = anim.steps; // Restart the animation from the beginning
+        anim.playAnim = false;
+
+        if (rel && rel->parent != entt::null) { // if it's the legs
+            sprite.hidden = true;
+            continue; // will be moved as child of player
+        }
+
+        mov.move = false;
     }
 }
 

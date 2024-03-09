@@ -1,6 +1,7 @@
 #include "AnimationSystem.hpp"
 #include "components/Animation.hpp"
 #include "components/Sprite.hpp"
+#include <iostream>
 
 void animateSprites(entt::registry &reg, uint32_t time)
 {
