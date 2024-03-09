@@ -17,7 +17,8 @@ Surface::Surface(const std::string &filepath, SDL_Surface *winSurface) : _isLoad
     }
     if (winSurface == NULL) {
         _surface = tmp;
-    } else {
+    }
+    else {
         _surface = SDL_ConvertSurface(tmp, winSurface->format, 0);
         SDL_FreeSurface(tmp);
     }

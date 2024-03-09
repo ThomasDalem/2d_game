@@ -10,6 +10,7 @@ set(SRCS
     src/utils/TexturesLoader.cpp
     src/utils/Timer.cpp
     src/utils/TransformUtils.cpp
+    src/utils/Infos.cpp
     src/SDL/App.cpp
     src/SDL/Surface.cpp
     src/SDL/Texture.cpp
@@ -30,6 +31,7 @@ set(HEADERS
     src/utils/TexturesLoader.hpp
     src/utils/Timer.hpp
     src/utils/TransformUtils.hpp
+    src/utils/Infos.hpp
     src/SDL/App.hpp
     src/SDL/Surface.hpp
     src/SDL/Texture.hpp
@@ -57,7 +59,6 @@ else()
     # additional warnings
     add_compile_options(-Wall -Wextra -Wpedantic -g)
 endif()
-
 
 find_package(SDL2 REQUIRED)
 find_package(SDL2_image REQUIRED)
