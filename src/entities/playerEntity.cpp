@@ -5,6 +5,7 @@
 #include "components/Movement.hpp"
 #include "components/Relationship.hpp"
 #include "components/Collider.hpp"
+#include "components/Inventory.hpp"
 
 entt::entity makePlayerBody(entt::registry &reg, TexturesLoader &texturesLoader)
 {

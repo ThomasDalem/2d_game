@@ -4,6 +4,6 @@
 #include "entt.hpp"
 #include "SDL/Renderer.hpp"
 
-void handleCollisions(entt::registry &reg, SDL::Renderer &renderer);
+void handleCollisions(entt::registry &reg);
 
 #endif // COLLISION_SYSTEM_HPP

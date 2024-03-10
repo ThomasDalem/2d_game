@@ -5,7 +5,7 @@
 
 int main()
 {
-    SDL::App app(1200, 800);
+    SDL::App app(1800, 1300);
     MainLoop mainLoop(app);
 
     mainLoop.loop();

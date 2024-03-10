@@ -20,12 +20,15 @@ set(SRCS
     src/systems/AnimationSystem.cpp
     src/systems/MovementSystem.cpp
     src/systems/CollisionSystem.cpp
+    src/systems/InventorySystem.cpp
     src/entities/playerEntity.cpp
     src/entities/boxEntity.cpp
+    src/entities/inventoryEntity.cpp
 )
 
 set(HEADERS
     src/MainLoop.hpp
+    src/items/ItemsDefs.hpp
     src/utils/Vec.hpp
     src/utils/Rect.hpp
     src/utils/TexturesLoader.hpp
@@ -43,13 +46,17 @@ set(HEADERS
     src/components/Movement.hpp
     src/components/Relationship.hpp
     src/components/Collider.hpp
+    src/components/Inventory.hpp
+    src/components/GUI.hpp
     src/systems/RenderSystem.hpp
     src/systems/PlayerMovement.hpp
     src/systems/AnimationSystem.hpp
     src/systems/MovementSystem.hpp
     src/systems/CollisionSystem.hpp
+    src/systems/InventorySystem.hpp
     src/entities/playerEntity.hpp
     src/entities/boxEntity.hpp
+    src/entities/inventoryEntity.hpp
 )
 
 if (MSVC)

@@ -6,12 +6,14 @@
 
 #include "entities/playerEntity.hpp"
 #include "entities/boxEntity.hpp"
+#include "entities/inventoryEntity.hpp"
 
 #include "systems/RenderSystem.hpp"
 #include "systems/PlayerMovement.hpp"
 #include "systems/AnimationSystem.hpp"
 #include "systems/MovementSystem.hpp"
 #include "systems/CollisionSystem.hpp"
+#include "systems/InventorySystem.hpp"
 
 #include "components/Player.hpp"
 #include "components/Sprite.hpp"
@@ -35,6 +37,7 @@ void MainLoop::loop()
     entt::entity playerBody = makePlayerBody(reg, texturesLoader);
     makePlayerLegs(reg, texturesLoader, playerBody);
     makeBox(reg, texturesLoader);
+    makeInventory(reg, texturesLoader, _app.getScreenWidth(), _app.getScreenHeight());
 
     Timer frameTimer;
     Timer animTimer;
@@ -48,6 +51,7 @@ void MainLoop::loop()
             }
             else if (e.type == SDL_KEYDOWN) {
                 movePlayer(reg, e);
+                openInventory(reg, e);
             }
             else if (e.type == SDL_KEYUP) {
                 stopPlayer(reg, e);
@@ -59,10 +63,9 @@ void MainLoop::loop()
         turnPlayer(reg);
         moveSprites(reg, frameTimer.getDeltaTime());
         animateSprites(reg, animTimer.getDeltaTime());
-        updateRenderSystem(_app.getRenderer(), reg);
-        handleCollisions(reg, _app.getRenderer());
+        handleCollisions(reg);
+        updateRenderSystem(reg, _app.getRenderer(), true);
 
         _app.getRenderer().present();
-
     }
 }

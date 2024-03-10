@@ -1,11 +1,42 @@
 #include "RenderSystem.hpp"
 #include "components/Sprite.hpp"
+#include "components/GUI.hpp"
+#include "components/Collider.hpp"
 
-void updateRenderSystem(SDL::Renderer &renderer, entt::registry &reg)
+void drawCollider(Collider &collider, SDL::Renderer &renderer)
 {
-    const auto view = reg.view<Sprite>();
+    std::vector<SDL_FPoint> points;
+    for (const Vec2d &vertex : collider.vertices) {
+        SDL_FPoint point {static_cast<float>(vertex.x), static_cast<float>(vertex.y)};
+        points.push_back(point);
+    }
+    // To make a line between the first and the last vertices
+    SDL_FPoint point {
+        static_cast<float>(collider.vertices[collider.vertices.size() - 1].x),
+        static_cast<float>(collider.vertices[0].y)
+    };
+    points.push_back(point);
 
-    view.each([&renderer](Sprite &sprite){
+    renderer.setDrawColor(collider.drawColor.r, collider.drawColor.g, collider.drawColor.b, collider.drawColor.a);
+    SDL_RenderDrawLinesF(renderer.getRenderer(), points.data(), collider.vertices.size() + 1);
+    renderer.setDrawColor(50, 50, 50, 0);
+}
+
+void drawColliders(entt::registry &reg, SDL::Renderer &renderer)
+{
+    auto collidersView = reg.view<Collider>();
+    collidersView.each([&](Collider &collider){
+        drawCollider(collider, renderer);
+    });
+}
+
+void updateRenderSystem(entt::registry &reg, SDL::Renderer &renderer, bool debug)
+{
+    const auto view = reg.view<Sprite>(entt::exclude<GUI>);
+    const auto guiView = reg.view<Sprite, GUI>();
+
+    auto f = [&](Sprite &sprite)
+    {
         if (sprite.hidden) {
             return;
         }
@@ -38,5 +69,10 @@ void updateRenderSystem(SDL::Renderer &renderer, entt::registry &reg)
             };
             renderer.copyEx(sprite.texture, sprite.angle, &spriteRect, &rect, sprite.flip);
         }
-    });
+    };
+    view.each(f);
+    if (debug) {
+        drawColliders(reg, renderer);
+    }
+    guiView.each(f);
 }

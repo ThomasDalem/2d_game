@@ -97,25 +97,6 @@ bool isColliding(const std::vector<Vec2d> &a, const std::vector<Vec2d> &b, Vec2d
     return true;
 }
 
-void displayCollider(Collider &collider, SDL::Renderer &renderer)
-{
-    std::vector<SDL_FPoint> points;
-    for (const Vec2d &vertex : collider.vertices) {
-        SDL_FPoint point {static_cast<float>(vertex.x), static_cast<float>(vertex.y)};
-        points.push_back(point);
-    }
-    // To make a line between the first and the last vertices
-    SDL_FPoint point {
-        static_cast<float>(collider.vertices[collider.vertices.size() - 1].x),
-        static_cast<float>(collider.vertices[0].y)
-    };
-    points.push_back(point);
-
-    renderer.setDrawColor(collider.drawColor.r, collider.drawColor.g, collider.drawColor.b, collider.drawColor.a);
-    SDL_RenderDrawLinesF(renderer.getRenderer(), points.data(), collider.vertices.size() + 1);
-    renderer.setDrawColor(50, 50, 50, 0);
-}
-
 void moveCollider(std::vector<Vec2d> &vertices, const Vec2d &length)
 {
     for (Vec2d &vertex : vertices) {
@@ -139,16 +120,12 @@ Vec2d testSub(const Vec2d &a, const Vec2d &b)
     return {a.x - b.x, a.y - b.y};
 }
 
-void handleCollisions(entt::registry &reg, SDL::Renderer &renderer)
+void handleCollisions(entt::registry &reg)
 {
     auto view = reg.view<Collider>();
 
     for (const entt::entity e : view) {
         Collider &collider = reg.get<Collider>(e);
-
-        if (collider.display == true) {
-            displayCollider(collider, renderer);
-        }
 
         for (const entt::entity other : view) {
             if (e == other) {
@@ -168,8 +145,6 @@ void handleCollisions(entt::registry &reg, SDL::Renderer &renderer)
                     mtv = {-mtv.x, -mtv.y};
                 }
 
-                //moveCollider(collider.vertices, mtv);
-                //moveSprite(mtv, reg, e);
                 translate(reg, e, mtv);
             }
             else {
