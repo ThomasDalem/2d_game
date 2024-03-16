@@ -11,6 +11,7 @@ Renderer::Renderer() : _renderer(NULL)
 Renderer::Renderer(SDL_Window *window)
 {
     _renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    setDrawBlendMode(SDL_BLENDMODE_BLEND);
     
     if (_renderer == NULL)
     {
@@ -45,6 +46,11 @@ void Renderer::initRenderer(SDL_Window *window)
 int Renderer::setDrawColor(uint8_t r, uint8_t g, uint8_t b, uint8_t a)
 {
     return SDL_SetRenderDrawColor(_renderer, r, g, b, a);
+}
+
+void Renderer::setDrawBlendMode(SDL_BlendMode mode)
+{
+    SDL_SetRenderDrawBlendMode(_renderer, mode);
 }
 
 int Renderer::clear()

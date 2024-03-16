@@ -7,15 +7,14 @@
 #include "utils/Vec.hpp"
 #include "items/ItemsDefs.hpp"
 
-struct InvItem {
+struct ItemSlotInfo {
     ItemID id;
-    Sprite sprite;
     std::string name;
-    Vec2i gridPos;
+    entt::entity item = entt::null;
 };
 
 struct Inventory {
-    std::vector<InvItem> items;
+    std::vector<entt::entity> items;
     bool isOpen = false;
 };
 

@@ -24,6 +24,7 @@ set(SRCS
     src/entities/playerEntity.cpp
     src/entities/boxEntity.cpp
     src/entities/inventoryEntity.cpp
+    src/entities/itemSlot.cpp
 )
 
 set(HEADERS
@@ -48,6 +49,8 @@ set(HEADERS
     src/components/Collider.hpp
     src/components/Inventory.hpp
     src/components/GUI.hpp
+    src/components/Rectangle.hpp
+    src/components/Button.hpp
     src/systems/RenderSystem.hpp
     src/systems/PlayerMovement.hpp
     src/systems/AnimationSystem.hpp
@@ -57,6 +60,7 @@ set(HEADERS
     src/entities/playerEntity.hpp
     src/entities/boxEntity.hpp
     src/entities/inventoryEntity.hpp
+    src/entities/itemSlot.hpp
 )
 
 if (MSVC)

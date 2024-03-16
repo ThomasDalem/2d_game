@@ -3,6 +3,7 @@
 
 using ItemID = int;
 
+constexpr int NONE_ID = 0;
 constexpr int GUN_ITEM_ID = 0;
 constexpr int BANDAGE_ITEM_ID = 1;
 

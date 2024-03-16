@@ -2,6 +2,7 @@
 #include "components/Sprite.hpp"
 #include "components/GUI.hpp"
 #include "components/Collider.hpp"
+#include "components/Rectangle.hpp"
 
 void drawCollider(Collider &collider, SDL::Renderer &renderer)
 {
@@ -28,6 +29,19 @@ void drawColliders(entt::registry &reg, SDL::Renderer &renderer)
     collidersView.each([&](Collider &collider){
         drawCollider(collider, renderer);
     });
+}
+
+void drawGUIRectangles(entt::registry &reg, SDL::Renderer &renderer)
+{
+    auto view = reg.view<GUI, Rectangle>();
+    for (entt::entity e : view) {
+        const Rectangle &rect = reg.get<Rectangle>(e);
+        const SDL_Rect sdlRect {rect.rect.x, rect.rect.y, rect.rect.width, rect.rect.height};
+
+        renderer.setDrawColor(rect.color.r, rect.color.g, rect.color.b, rect.color.a);
+        SDL_RenderFillRect(renderer.getRenderer(), &sdlRect);
+        renderer.setDrawColor(50, 50, 50, 0);
+    }
 }
 
 void updateRenderSystem(entt::registry &reg, SDL::Renderer &renderer, bool debug)
@@ -75,4 +89,5 @@ void updateRenderSystem(entt::registry &reg, SDL::Renderer &renderer, bool debug
         drawColliders(reg, renderer);
     }
     guiView.each(f);
+    drawGUIRectangles(reg, renderer);
 }

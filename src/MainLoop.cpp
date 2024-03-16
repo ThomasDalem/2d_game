@@ -7,6 +7,7 @@
 #include "entities/playerEntity.hpp"
 #include "entities/boxEntity.hpp"
 #include "entities/inventoryEntity.hpp"
+#include "entities/itemSlot.hpp"
 
 #include "systems/RenderSystem.hpp"
 #include "systems/PlayerMovement.hpp"
@@ -34,10 +35,13 @@ void MainLoop::loop()
     TexturesLoader texturesLoader(_app.getRenderer());
     SDL_Event e;
 
-    entt::entity playerBody = makePlayerBody(reg, texturesLoader);
+    const entt::entity playerBody = makePlayerBody(reg, texturesLoader);
     makePlayerLegs(reg, texturesLoader, playerBody);
     makeBox(reg, texturesLoader);
-    makeInventory(reg, texturesLoader, _app.getScreenWidth(), _app.getScreenHeight());
+    const entt::entity inv = makeInventory(reg, texturesLoader, _app.getScreenWidth(), _app.getScreenHeight());
+    Sprite &invSprite = reg.get<Sprite>(inv);
+    makeItemSlot(reg, invSprite.pos, {0, 0});
+    makeItemSlot(reg, invSprite.pos, {1, 0});
 
     Timer frameTimer;
     Timer animTimer;
@@ -49,9 +53,9 @@ void MainLoop::loop()
             if (e.type == SDL_QUIT) {
                 _quit = true;
             }
-            else if (e.type == SDL_KEYDOWN) {
+            handleInputsInventory(reg, e);
+            if (e.type == SDL_KEYDOWN) {
                 movePlayer(reg, e);
-                openInventory(reg, e);
             }
             else if (e.type == SDL_KEYUP) {
                 stopPlayer(reg, e);

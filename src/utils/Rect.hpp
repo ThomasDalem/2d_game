@@ -3,14 +3,16 @@
 
 #include <ostream>
 
-struct RectF {
-    float x;
-    float y;
-    float width;
-    float height;
+template<typename T>
+struct Rect {
+    T x;
+    T y;
+    T width;
+    T height;
 };
 
-inline std::ostream &operator<< (std::ostream &os, const RectF &rect)
+template<typename T>
+inline std::ostream &operator<< (std::ostream &os, const Rect<T> &rect)
 {
     os << "x: " << rect.x
         << "\ty: " << rect.y
@@ -19,20 +21,14 @@ inline std::ostream &operator<< (std::ostream &os, const RectF &rect)
     return os;
 }
 
-struct RectI {
-    int x;
-    int y;
-    int width;
-    int height;
-};
-
-inline std::ostream &operator<< (std::ostream &os, const RectI &rect)
+template<typename T, typename P>
+bool pointInRect(Rect<T> rect, P x, P y)
 {
-    os << "x: " << rect.x
-        << "\ty: " << rect.y
-        << "\twidth: " << rect.width
-        << "\theight: " << rect.height;
-    return os;
+    return (x > rect.x && x < rect.x + rect.width) && (y > rect.y && y < rect.y + rect.height);
 }
+
+using RectI = Rect<int>;
+using RectF = Rect<float>;
+using RectD = Rect<double>;
 
 #endif // RECT_HPP
