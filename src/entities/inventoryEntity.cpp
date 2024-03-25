@@ -1,16 +1,16 @@
 #include "inventoryEntity.hpp"
 #include "components/Sprite.hpp"
 #include "components/Inventory.hpp"
-#include "components/GUI.hpp"
+#include "components/tags/GUI.hpp"
 
 entt::entity makeInventory(entt::registry &reg, TexturesLoader &textureLoader, uint16_t screenX, uint16_t screenY)
 {
     entt::entity e = reg.create();
 
-    SDL::Texture &texture = textureLoader.getTexture("assets/bag.png");
+    std::shared_ptr<SDL::Texture> texture = textureLoader.getTexture("assets/bag.png");
 
-    const int x = screenX / 2 - texture.getWidth() / 2;
-    const int y = screenY / 2 - texture.getHeight() / 2;
+    const int x = screenX / 2 - texture->getWidth() / 2;
+    const int y = screenY / 2 - texture->getHeight() / 2;
 
     reg.emplace<Sprite>(
         e,

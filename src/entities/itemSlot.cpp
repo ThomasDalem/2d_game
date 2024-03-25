@@ -1,8 +1,8 @@
 #include "itemSlot.hpp"
 
-#include "components/GUI.hpp"
+#include "components/tags/GUI.hpp"
+#include "components/tags/Button.hpp"
 #include "components/Rectangle.hpp"
-#include "components/Button.hpp"
 
 entt::entity makeItemSlot(entt::registry &reg, const Vec2i &invPos, const Vec2i &gridPos)
 {

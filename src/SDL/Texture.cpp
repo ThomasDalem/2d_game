@@ -5,8 +5,8 @@
 using namespace SDL;
 
 Texture::Texture(const std::string &path, Renderer &renderer) :
-    _width(0),
-    _height(0),
+    _width(-1),
+    _height(-1),
     _isLoaded(false)
 {
     Surface surface(path);

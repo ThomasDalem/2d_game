@@ -11,10 +11,10 @@ public:
     TexturesLoader(SDL::Renderer &renderer);
     ~TexturesLoader();
 
-    SDL::Texture &getTexture(const std::string &path);
+    std::shared_ptr<SDL::Texture> getTexture(const std::string &path);
 
 private:
-    std::unordered_map<std::string, SDL::Texture> _textures;
+    std::unordered_map<std::string, std::shared_ptr<SDL::Texture>> _textures;
     SDL::Renderer &_renderer;
 };
 

@@ -5,6 +5,10 @@ project(2d_game)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
 
 set(SRCS
+    src/HUD/Layer.cpp
+    src/HUD/Component.cpp
+    src/HUD/Image.cpp
+    src/HUD/layers/InventoryLayer.cpp
     src/main.cpp
     src/MainLoop.cpp
     src/utils/TexturesLoader.cpp
@@ -28,6 +32,10 @@ set(SRCS
 )
 
 set(HEADERS
+    src/HUD/Layer.hpp
+    src/HUD/Component.hpp
+    src/HUD/Image.hpp
+    src/HUD/layers/InventoryLayer.hpp
     src/MainLoop.hpp
     src/items/ItemsDefs.hpp
     src/utils/Vec.hpp
@@ -42,15 +50,15 @@ set(HEADERS
     src/SDL/Renderer.hpp
     src/components/Position.hpp
     src/components/Sprite.hpp
-    src/components/Player.hpp
     src/components/Animation.hpp
     src/components/Movement.hpp
     src/components/Relationship.hpp
     src/components/Collider.hpp
     src/components/Inventory.hpp
-    src/components/GUI.hpp
     src/components/Rectangle.hpp
-    src/components/Button.hpp
+    src/components/tags/Button.hpp
+    src/components/tags/GUI.hpp
+    src/components/tags/Player.hpp
     src/systems/RenderSystem.hpp
     src/systems/PlayerMovement.hpp
     src/systems/AnimationSystem.hpp

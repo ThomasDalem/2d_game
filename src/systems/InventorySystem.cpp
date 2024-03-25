@@ -1,6 +1,6 @@
 #include "InventorySystem.hpp"
 #include "components/Inventory.hpp"
-#include "components/Button.hpp"
+#include "components/tags/Button.hpp"
 #include "components/Rectangle.hpp"
 
 void handleInputsInventory(entt::registry &reg, SDL_Event &evt)

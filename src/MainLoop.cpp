@@ -16,8 +16,9 @@
 #include "systems/CollisionSystem.hpp"
 #include "systems/InventorySystem.hpp"
 
-#include "components/Player.hpp"
 #include "components/Sprite.hpp"
+
+#include "HUD/layers/InventoryLayer.hpp"
 
 MainLoop::MainLoop(SDL::App &app): _app(app), _quit(false)
 {
@@ -38,10 +39,12 @@ void MainLoop::loop()
     const entt::entity playerBody = makePlayerBody(reg, texturesLoader);
     makePlayerLegs(reg, texturesLoader, playerBody);
     makeBox(reg, texturesLoader);
-    const entt::entity inv = makeInventory(reg, texturesLoader, _app.getScreenWidth(), _app.getScreenHeight());
+    /* const entt::entity inv = makeInventory(reg, texturesLoader, _app.getScreenWidth(), _app.getScreenHeight());
     Sprite &invSprite = reg.get<Sprite>(inv);
     makeItemSlot(reg, invSprite.pos, {0, 0});
-    makeItemSlot(reg, invSprite.pos, {1, 0});
+    makeItemSlot(reg, invSprite.pos, {1, 0}); */
+    std::unique_ptr<HUD::Layer> menuLayer = std::make_unique<HUD::InventoryLayer>(texturesLoader, _app.getScreenWidth(), _app.getScreenHeight());
+    menuLayer->setHidden(false);
 
     Timer frameTimer;
     Timer animTimer;
@@ -69,6 +72,8 @@ void MainLoop::loop()
         animateSprites(reg, animTimer.getDeltaTime());
         handleCollisions(reg);
         updateRenderSystem(reg, _app.getRenderer(), true);
+
+        menuLayer->draw(_app.getRenderer());
 
         _app.getRenderer().present();
     }

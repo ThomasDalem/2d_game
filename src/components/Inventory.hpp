@@ -14,7 +14,7 @@ struct ItemSlotInfo {
 };
 
 struct Inventory {
-    std::vector<entt::entity> items;
+    std::vector<entt::entity> slots;
     bool isOpen = false;
 };
 

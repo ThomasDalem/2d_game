@@ -13,7 +13,7 @@ struct Sprite {
     RectI rect;
     double angle;
     SDL_RendererFlip flip;
-    SDL::Texture &texture;
+    std::shared_ptr<SDL::Texture> texture;
 };
 
 #endif // SPRITE_HPP

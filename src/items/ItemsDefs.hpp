@@ -1,10 +1,22 @@
 #ifndef ITEMS_DEFS_HPP
 #define ITEMS_DEFS_HPP
 
-using ItemID = int;
+#include <string>
+#include "SDL/Texture.hpp"
 
-constexpr int NONE_ID = 0;
-constexpr int GUN_ITEM_ID = 0;
-constexpr int BANDAGE_ITEM_ID = 1;
+enum ItemID
+{
+    NONE,
+    GUN,
+    BANDAGE
+};
+
+struct ItemData
+{
+    std::string name;
+    std::string description;
+    SDL::Texture &texure;
+    ItemID id;
+};
 
 #endif // ITEMS_DEFS_HPP

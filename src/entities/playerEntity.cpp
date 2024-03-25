@@ -1,6 +1,6 @@
 #include "playerEntity.hpp"
 #include "components/Sprite.hpp"
-#include "components/Player.hpp"
+#include "components/tags/Player.hpp"
 #include "components/Animation.hpp"
 #include "components/Movement.hpp"
 #include "components/Relationship.hpp"

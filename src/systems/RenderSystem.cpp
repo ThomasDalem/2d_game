@@ -1,6 +1,6 @@
 #include "RenderSystem.hpp"
 #include "components/Sprite.hpp"
-#include "components/GUI.hpp"
+#include "components/tags/GUI.hpp"
 #include "components/Collider.hpp"
 #include "components/Rectangle.hpp"
 
@@ -56,8 +56,8 @@ void updateRenderSystem(entt::registry &reg, SDL::Renderer &renderer, bool debug
         }
 
         if (sprite.textureRect.height == -1) {
-            sprite.rect.width = sprite.texture.getWidth() * sprite.scale.x;
-            sprite.rect.height = sprite.texture.getHeight() * sprite.scale.y;
+            sprite.rect.width = sprite.texture->getWidth() * sprite.scale.x;
+            sprite.rect.height = sprite.texture->getHeight() * sprite.scale.y;
         }
         else {
             sprite.rect.width = sprite.textureRect.width * sprite.scale.x;
@@ -72,7 +72,7 @@ void updateRenderSystem(entt::registry &reg, SDL::Renderer &renderer, bool debug
         };
 
         if (sprite.textureRect.width < 0 || sprite.textureRect.height < 0) {
-            renderer.copyEx(sprite.texture, sprite.angle, NULL, &rect, sprite.flip);
+            renderer.copyEx(*sprite.texture.get(), sprite.angle, NULL, &rect, sprite.flip);
         }
         else {
             SDL_Rect spriteRect = {
@@ -81,7 +81,7 @@ void updateRenderSystem(entt::registry &reg, SDL::Renderer &renderer, bool debug
                 sprite.textureRect.width,
                 sprite.textureRect.height
             };
-            renderer.copyEx(sprite.texture, sprite.angle, &spriteRect, &rect, sprite.flip);
+            renderer.copyEx(*sprite.texture.get(), sprite.angle, &spriteRect, &rect, sprite.flip);
         }
     };
     view.each(f);
