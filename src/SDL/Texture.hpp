@@ -6,8 +6,8 @@
 #include "Renderer.hpp"
 #include "utils/Vec.hpp"
 
-namespace SDL {
-
+namespace SDL
+{
     class Renderer;
 
     class Texture {

@@ -11,8 +11,7 @@ namespace HUD
     public:
         InventoryLayer(TexturesLoader &textureLoader, int screenWidth, int screenHeight);
 
-    private:
-        bool hidden;
+        void handleInput(const SDL_Event &e);
     };
 }
 

@@ -17,6 +17,9 @@ bool Layer::getHidden()
 
 void Layer::draw(SDL::Renderer &renderer)
 {
+    if (_hidden) {
+        return;
+    }
     for (auto &component : _components) {
         if (component->isHidden()) {
             continue;

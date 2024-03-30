@@ -15,3 +15,10 @@ InventoryLayer::InventoryLayer(TexturesLoader &textureLoader, int screenWidth, i
         _components.push_back(std::move(bagImage));
     }
 }
+
+void InventoryLayer::handleInput(const SDL_Event &e)
+{
+    if (e.key.keysym.sym == SDLK_i) {
+        _hidden = !_hidden;
+    }
+}

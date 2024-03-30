@@ -39,12 +39,8 @@ void MainLoop::loop()
     const entt::entity playerBody = makePlayerBody(reg, texturesLoader);
     makePlayerLegs(reg, texturesLoader, playerBody);
     makeBox(reg, texturesLoader);
-    /* const entt::entity inv = makeInventory(reg, texturesLoader, _app.getScreenWidth(), _app.getScreenHeight());
-    Sprite &invSprite = reg.get<Sprite>(inv);
-    makeItemSlot(reg, invSprite.pos, {0, 0});
-    makeItemSlot(reg, invSprite.pos, {1, 0}); */
-    std::unique_ptr<HUD::Layer> menuLayer = std::make_unique<HUD::InventoryLayer>(texturesLoader, _app.getScreenWidth(), _app.getScreenHeight());
-    menuLayer->setHidden(false);
+    std::unique_ptr<HUD::Layer> inventoryLayer = std::make_unique<HUD::InventoryLayer>(texturesLoader, _app.getScreenWidth(), _app.getScreenHeight());
+    inventoryLayer->setHidden(false);
 
     Timer frameTimer;
     Timer animTimer;
@@ -56,7 +52,7 @@ void MainLoop::loop()
             if (e.type == SDL_QUIT) {
                 _quit = true;
             }
-            handleInputsInventory(reg, e);
+            inventoryLayer->handleInput(e);
             if (e.type == SDL_KEYDOWN) {
                 movePlayer(reg, e);
             }
@@ -73,7 +69,7 @@ void MainLoop::loop()
         handleCollisions(reg);
         updateRenderSystem(reg, _app.getRenderer(), true);
 
-        menuLayer->draw(_app.getRenderer());
+        inventoryLayer->draw(_app.getRenderer());
 
         _app.getRenderer().present();
     }

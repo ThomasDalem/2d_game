@@ -17,6 +17,7 @@ namespace HUD
         bool getHidden();
 
         void draw(SDL::Renderer &renderer);
+        virtual void handleInput(const SDL_Event &e) = 0;
 
     protected:
         std::vector<std::unique_ptr<Component>> _components;
