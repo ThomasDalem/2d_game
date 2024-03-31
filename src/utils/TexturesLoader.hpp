@@ -6,7 +6,8 @@
 #include <memory>
 #include "SDL/Texture.hpp"
 
-class TexturesLoader {
+class TexturesLoader
+{
 public:
     TexturesLoader(SDL::Renderer &renderer);
     ~TexturesLoader();

@@ -10,7 +10,7 @@ InventorySlot::InventorySlot(int x, int y, int width, int height)
 
 ComponentType InventorySlot::getType() const
 {
-    return ComponentType::OTHER;
+    return ComponentType::SLOT;
 }
 
 void InventorySlot::onHoverEnter()

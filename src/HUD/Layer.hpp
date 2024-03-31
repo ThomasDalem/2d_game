@@ -20,7 +20,7 @@ namespace HUD
 
         void draw(SDL::Renderer &renderer);
 
-        virtual void handleInput(const SDL_Event &e) = 0;
+        virtual void handleInput(const SDL_Event &e, int mouseX, int mouseY) = 0;
         virtual void checkMousePos(int x, int y) = 0;
 
     protected:

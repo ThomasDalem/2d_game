@@ -13,7 +13,14 @@ namespace HUD
 
         ComponentType getType() const;
 
-        void onClickDown(int x, int y);
+        bool isDragged() const;
+
+        virtual void onClickDown(int x, int y);
+        virtual void onClick(int x, int y);
+        void onClickUp(int x, int y);
+    
+    protected:
+        bool _isDragged;
     };
 }
 

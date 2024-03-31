@@ -11,8 +11,11 @@ namespace HUD
     public:
         InventoryLayer(TexturesLoader &textureLoader, int screenWidth, int screenHeight);
 
-        void handleInput(const SDL_Event &e);
+        void handleInput(const SDL_Event &e, int mouseX, int mouseY);
         void checkMousePos(int x, int y);
+
+    private:
+        void clickedComponents(int x, int y);
     };
 }
 

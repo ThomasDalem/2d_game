@@ -9,6 +9,7 @@ namespace HUD
     {
         BUTTON,
         DRAGGABLE,
+        SLOT,
         OTHER
     };
 

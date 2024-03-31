@@ -9,6 +9,11 @@ struct Rect {
     T y;
     T width;
     T height;
+
+    operator SDL_Rect()
+    {
+        return {static_cast<int>(x), static_cast<int>(y), static_cast<int>(width), static_cast<int>(height)};
+    }
 };
 
 template<typename T>

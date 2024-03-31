@@ -48,22 +48,24 @@ void MainLoop::loop()
     animTimer.start();
     while (!_quit) {
         frameTimer.start();
+
+        int mouseX = 0;
+        int mouseY = 0;
+        SDL_GetMouseState(&mouseX, &mouseY);
+
         while (SDL_PollEvent(&e) != 0) {
             if (e.type == SDL_QUIT) {
                 _quit = true;
             }
-            inventoryLayer->handleInput(e);
+            inventoryLayer->handleInput(e, mouseX, mouseY);
             if (e.type == SDL_KEYDOWN) {
                 movePlayer(reg, e);
             }
             else if (e.type == SDL_KEYUP) {
                 stopPlayer(reg, e);
-            } 
+            }
         }
 
-        int mouseX = 0;
-        int mouseY = 0;
-        SDL_GetMouseState(&mouseX, &mouseY);
         inventoryLayer->checkMousePos(mouseX, mouseY);
 
         _app.getRenderer().setDrawColor(50, 50, 50, 0);
