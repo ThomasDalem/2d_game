@@ -7,8 +7,12 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
 set(SRCS
     src/HUD/Layer.cpp
     src/HUD/Component.cpp
+    src/HUD/Interactable.cpp
+    src/HUD/Draggable.cpp
     src/HUD/Image.cpp
+    src/HUD/Button.cpp
     src/HUD/layers/InventoryLayer.cpp
+    src/HUD/draggable/InventorySlot.cpp
     src/main.cpp
     src/MainLoop.cpp
     src/utils/TexturesLoader.cpp
@@ -34,8 +38,12 @@ set(SRCS
 set(HEADERS
     src/HUD/Layer.hpp
     src/HUD/Component.hpp
+    src/HUD/Interactable.hpp
+    src/HUD/Draggable.hpp
     src/HUD/Image.hpp
+    src/HUD/Button.hpp
     src/HUD/layers/InventoryLayer.hpp
+    src/HUD/draggable/InventorySlot.hpp
     src/MainLoop.hpp
     src/items/ItemsDefs.hpp
     src/utils/Vec.hpp

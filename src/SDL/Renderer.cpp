@@ -83,6 +83,19 @@ int Renderer::copyEx(Texture &texture,
     return SDL_RenderCopyEx(_renderer, texture.getTexture(), srcRect, dstRect, angle, &c, flip);
 }
 
+void Renderer::drawRect(const RectI &rect, uint8_t r, uint8_t g, uint8_t b, uint8_t a)
+{
+    SDL_Rect sdlRect = {
+        rect.x,
+        rect.y,
+        rect.width,
+        rect.height
+    };
+    setDrawColor(r, g, b, a);
+    SDL_RenderFillRect(_renderer, &sdlRect);
+    setDrawColor(255, 255, 255, 0);
+}
+
 void Renderer::present()
 {
     return SDL_RenderPresent(_renderer);

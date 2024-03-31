@@ -3,7 +3,9 @@
 
 #include <vector>
 #include <memory>
-#include "Component.hpp"
+#include "HUD/Component.hpp"
+#include "HUD/Button.hpp"
+#include "HUD/Interactable.hpp"
 #include "SDL/Renderer.hpp"
 
 namespace HUD
@@ -17,10 +19,12 @@ namespace HUD
         bool getHidden();
 
         void draw(SDL::Renderer &renderer);
+
         virtual void handleInput(const SDL_Event &e) = 0;
 
     protected:
         std::vector<std::unique_ptr<Component>> _components;
+        std::vector<std::unique_ptr<Interactable>> _interactableComponents;
         bool _hidden;
     };
 }

@@ -26,4 +26,10 @@ void Layer::draw(SDL::Renderer &renderer)
         }
         component->draw(renderer);
     }
+    for (auto &component : _interactableComponents) {
+        if (component->isHidden()) {
+            continue;
+        }
+        component->draw(renderer);
+    }
 }
