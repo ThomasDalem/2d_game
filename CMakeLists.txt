@@ -12,7 +12,8 @@ set(SRCS
     src/HUD/Image.cpp
     src/HUD/Button.cpp
     src/HUD/layers/InventoryLayer.cpp
-    src/HUD/draggable/InventorySlot.cpp
+    src/HUD/inventory/InventorySlot.cpp
+    src/HUD/inventory/InventoryItem.cpp
     src/main.cpp
     src/MainLoop.cpp
     src/utils/TexturesLoader.cpp
@@ -43,7 +44,8 @@ set(HEADERS
     src/HUD/Image.hpp
     src/HUD/Button.hpp
     src/HUD/layers/InventoryLayer.hpp
-    src/HUD/draggable/InventorySlot.hpp
+    src/HUD/inventory/InventorySlot.hpp
+    src/HUD/inventory/InventoryItem.hpp
     src/MainLoop.hpp
     src/items/ItemsDefs.hpp
     src/utils/Vec.hpp
@@ -52,6 +54,7 @@ set(HEADERS
     src/utils/Timer.hpp
     src/utils/TransformUtils.hpp
     src/utils/Infos.hpp
+    src/utils/Color.hpp
     src/SDL/App.hpp
     src/SDL/Surface.hpp
     src/SDL/Texture.hpp

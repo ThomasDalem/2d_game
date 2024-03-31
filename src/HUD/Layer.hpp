@@ -21,6 +21,7 @@ namespace HUD
         void draw(SDL::Renderer &renderer);
 
         virtual void handleInput(const SDL_Event &e) = 0;
+        virtual void checkMousePos(int x, int y) = 0;
 
     protected:
         std::vector<std::unique_ptr<Component>> _components;

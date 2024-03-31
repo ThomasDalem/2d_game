@@ -14,11 +14,6 @@ namespace HUD
         ComponentType getType() const;
 
         void onClickDown(int x, int y);
-
-        void draw(SDL::Renderer &renderer);
-
-    private:
-        std::unique_ptr<Component> child;
     };
 }
 

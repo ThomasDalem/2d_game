@@ -8,8 +8,8 @@ Image::Image(const std::string &filepath, TexturesLoader &textureLoader, int x, 
     : Component(x, y)
     , _texture(textureLoader.getTexture(filepath))
 {
-    _width = _texture->getWidth();
-    _height = _texture->getHeight();
+    _rect.width = _texture->getWidth();
+    _rect.height = _texture->getHeight();
 }
 
 Image::Image(const std::shared_ptr<SDL::Texture> &texture, int x, int y)
@@ -23,8 +23,8 @@ void Image::draw(SDL::Renderer &renderer)
         return;
     }
     const SDL_Rect rect = {
-        _x,
-        _y,
+        _rect.x,
+        _rect.y,
         _texture->getWidth(),
         _texture->getHeight()
     };

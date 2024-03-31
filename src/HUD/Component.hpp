@@ -17,6 +17,7 @@ namespace HUD
         int getWidth() const;
         int getHeight() const;
         Vec2i getPos() const;
+        const RectI &getRect() const;
         bool isHidden() const;
 
         void setX(int x);
@@ -29,10 +30,7 @@ namespace HUD
         virtual void draw(SDL::Renderer &renderer) = 0;
 
     protected:
-        int _x;
-        int _y;
-        int _width;
-        int _height;
+        RectI _rect;
         bool _hidden;
     };
 }

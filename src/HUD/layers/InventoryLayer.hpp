@@ -12,6 +12,7 @@ namespace HUD
         InventoryLayer(TexturesLoader &textureLoader, int screenWidth, int screenHeight);
 
         void handleInput(const SDL_Event &e);
+        void checkMousePos(int x, int y);
     };
 }
 

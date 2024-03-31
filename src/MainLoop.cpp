@@ -60,6 +60,12 @@ void MainLoop::loop()
                 stopPlayer(reg, e);
             } 
         }
+
+        int mouseX = 0;
+        int mouseY = 0;
+        SDL_GetMouseState(&mouseX, &mouseY);
+        inventoryLayer->checkMousePos(mouseX, mouseY);
+
         _app.getRenderer().setDrawColor(50, 50, 50, 0);
         _app.getRenderer().clear();
 

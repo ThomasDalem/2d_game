@@ -3,36 +3,38 @@
 using namespace HUD;
 
 Component::Component(int x, int y, int width, int height, bool hidden)
-    : _x(x)
-    , _y(y)
-    , _width(width)
-    , _height(height)
+    : _rect({x, y, width, height})
     , _hidden(hidden)
 {}
 
 int Component::getX() const
 {
-    return _x;
+    return _rect.x;
 }
 
 int Component::getY() const
 {
-    return _y;
+    return _rect.y;
 }
 
 int Component::getWidth() const
 {
-    return _width;
+    return _rect.width;
 }
 
 int Component::getHeight() const
 {
-    return _height;
+    return _rect.height;
 }
 
 Vec2i Component::getPos() const
 {
-    return {_x, _y};
+    return {_rect.x, _rect.y};
+}
+
+const RectI &Component::getRect() const
+{
+    return _rect;
 }
 
 bool Component::isHidden() const
@@ -42,28 +44,28 @@ bool Component::isHidden() const
 
 void Component::setX(int x)
 {
-    _x = x;
+    _rect.x = x;
 }
 
 void Component::setY(int y)
 {
-    _y = y;
+    _rect.y = y;
 }
 
 void Component::setWidth(int width)
 {
-    _width = width;
+    _rect.width = width;
 }
 
 void Component::setHeight(int height)
 {
-    _height = height;
+    _rect.height = height;
 }
 
 void Component::setPos(const Vec2i &pos)
 {
-    _x = pos.x;
-    _y = pos.y;
+    _rect.x = pos.x;
+    _rect.y = pos.y;
 }
 
 void Component::setHidden(bool hidden)
