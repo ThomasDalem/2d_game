@@ -2,14 +2,17 @@
 #define DRAGGABLE_HPP
 
 #include <memory>
+#include <vector>
 #include "HUD/Interactable.hpp"
 
 namespace HUD
 {
+    using DragSlots = std::vector<std::shared_ptr<Component>>;
+
     class Draggable : public Interactable
     {
     public:
-        Draggable(int x, int y, int width, int height);
+        Draggable(const RectI &rect, DragSlots &slots, int currentSlot);
 
         ComponentType getType() const;
 
@@ -21,6 +24,8 @@ namespace HUD
     
     protected:
         bool _isDragged;
+        DragSlots &_slots;
+        std::shared_ptr<Component> _currentSlot;
     };
 }
 

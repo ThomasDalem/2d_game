@@ -2,7 +2,9 @@
 #define INVENTORY_LAYER_HPP
 
 #include "HUD/Layer.hpp"
+#include "HUD/inventory/InventorySlot.hpp"
 #include "utils/TexturesLoader.hpp"
+#include "HUD/Draggable.hpp"
 
 namespace HUD
 {
@@ -16,6 +18,8 @@ namespace HUD
 
     private:
         void clickedComponents(int x, int y);
+
+        DragSlots _slots;
     };
 }
 

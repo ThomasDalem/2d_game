@@ -5,7 +5,7 @@ using namespace HUD;
 
 InventorySlot::InventorySlot(int x, int y, int width, int height)
     : Interactable(x, y, width, height)
-    , _color({255, 255, 255, 0})
+    , _color({50, 60, 57, 0})
 {}
 
 ComponentType InventorySlot::getType() const
@@ -15,7 +15,7 @@ ComponentType InventorySlot::getType() const
 
 void InventorySlot::onHoverEnter()
 {
-    _color = {200, 200, 200, 0};
+    _color = {150, 150, 150, 0};
     _isHovered = true;
 }
 
@@ -26,7 +26,7 @@ void InventorySlot::onHover(int x, int y)
 
 void InventorySlot::onHoverQuit()
 {
-    _color = {255, 255, 255, 0};
+    _color = {50, 60, 57, 0};
     _isHovered = false;
 }
 

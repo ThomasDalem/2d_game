@@ -2,23 +2,13 @@
 
 using namespace HUD;
 
-InventoryItem::InventoryItem(const std::shared_ptr<SDL::Texture> &texture, int x, int y, int width, int height)
-    : Draggable(x, y, width, height)
+InventoryItem::InventoryItem(const std::shared_ptr<SDL::Texture> &texture, const RectI &rect, DragSlots &slots, int currentSlot)
+    : Draggable(rect, slots, currentSlot)
     , _texture(texture)
 {}
 
-InventoryItem::InventoryItem(const std::shared_ptr<SDL::Texture> &texture, const RectI &rect)
-    : Draggable(rect.x, rect.y, rect.width, rect.height)
-    , _texture(texture)
-{}
-
-InventoryItem::InventoryItem(const std::string &filepath, TexturesLoader &textureLoader, int x, int y, int width, int height)
-    : Draggable(x, y, width, height)
-    , _texture(textureLoader.getTexture(filepath))
-{}
-
-InventoryItem::InventoryItem(const std::string &filepath, TexturesLoader &textureLoader, const RectI &rect)
-    : Draggable(rect.x, rect.y, rect.width, rect.height)
+InventoryItem::InventoryItem(const std::string &filepath, TexturesLoader &textureLoader, const RectI &rect, DragSlots &slots, int currentSlot)
+    : Draggable(rect, slots, currentSlot)
     , _texture(textureLoader.getTexture(filepath))
 {}
 
@@ -30,14 +20,12 @@ void InventoryItem::draw(SDL::Renderer &renderer)
 
 void InventoryItem::onClickDown(int x, int y)
 {
-    _rect.x = x;
-    _rect.y = y;
     _isDragged = true;
     _isClicked = true;
 }
 
 void InventoryItem::onClick(int x, int y)
 {
-    _rect.x = x;
-    _rect.y = y;
+    _rect.x = x - _texture->getWidth() / 2;
+    _rect.y = y - _texture->getHeight() / 2;
 }

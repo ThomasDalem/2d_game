@@ -1,10 +1,12 @@
-#include "HUD/Draggable.hpp"
+#include "Draggable.hpp"
 
 using namespace HUD;
 
-Draggable::Draggable(int x, int y, int width, int height)
-    : Interactable(x, y, width, height)
+Draggable::Draggable(const RectI &rect, DragSlots &slots, int currentSlot)
+    : Interactable(rect.x, rect.y, rect.width, rect.height)
     , _isDragged(false)
+    , _slots(slots)
+    , _currentSlot(slots[currentSlot])
 {}
 
 ComponentType Draggable::getType() const
@@ -19,8 +21,6 @@ bool Draggable::isDragged() const
 
 void Draggable::onClickDown(int x, int y)
 {
-    _rect.x = x;
-    _rect.y = y;
     _isDragged = true;
     _isClicked = true;
 }
@@ -31,8 +31,21 @@ void Draggable::onClick(int x, int y)
     _rect.y = y;
 }
 
-void Draggable::onClickUp(int x, int y)
+void Draggable::onClickUp([[maybe_unused]]int x, [[maybe_unused]]int y)
 {
+    bool slotFound = false;
+
+    for (auto &slot : _slots) {
+        if (pointInRect(slot->getRect(), x, y)) {
+            setPos(slot->getPos());
+            _currentSlot = slot;
+            slotFound = true;
+            break;
+        }
+    }
+    if (slotFound == false) {
+        setPos(_currentSlot->getPos());
+    }
     _isDragged = false;
     _isClicked = false;
 }

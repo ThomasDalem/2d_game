@@ -19,16 +19,23 @@ InventoryLayer::InventoryLayer(TexturesLoader &textureLoader, int screenWidth, i
     const int slotWidth = 60;
     const int slotHeight = 60;
     // Inventory slot
-    for (int i = 0; i < 2; i++) {
-        const int posX = bagImage->getX() + bagLeftPadding + (slotWidth + slotsPadding) * i;
-        const int posY = bagImage->getY() + bagTopPadding;
-        std::unique_ptr<InventorySlot> slot = std::make_unique<InventorySlot>(posX, posY, slotWidth, slotHeight);
-        _interactableComponents.push_back(std::move(slot));
+    const int inventoryRows = 6;
+    const int inventoryCols = 5;
+    for (int row = 0; row < inventoryRows; row++) {
+        for (int col = 0; col < inventoryCols; col++) {
+            const int posX = bagImage->getX() + bagLeftPadding + (slotWidth + slotsPadding) * col;
+            const int posY = bagImage->getY() + bagTopPadding + (slotHeight + slotsPadding) * row;
+            std::shared_ptr<InventorySlot> slot = std::make_shared<InventorySlot>(posX, posY, slotWidth, slotHeight);
+            _interactableComponents.push_back(slot);
+            _slots.push_back(slot);
+        }
     }
 
     const int posX = bagImage->getX() + bagLeftPadding + (slotWidth + slotsPadding);
     const int posY = bagImage->getY() + bagTopPadding;
-    std::unique_ptr<InventoryItem> item = std::make_unique<InventoryItem>("assets/gun_item.png", textureLoader, posX, posY, slotWidth, slotHeight);
+    const RectI slotRect { posX, posY, slotWidth, slotHeight };
+    std::shared_ptr<InventoryItem> item
+        = std::make_shared<InventoryItem>("assets/gun_item.png", textureLoader, slotRect, _slots, 0);
     _interactableComponents.push_back(std::move(item));
 
     _components.push_back(std::move(bagImage));

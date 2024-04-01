@@ -25,7 +25,7 @@ namespace HUD
 
     protected:
         std::vector<std::unique_ptr<Component>> _components;
-        std::vector<std::unique_ptr<Interactable>> _interactableComponents;
+        std::vector<std::shared_ptr<Interactable>> _interactableComponents;
         bool _hidden;
     };
 }

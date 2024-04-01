@@ -11,10 +11,8 @@ namespace HUD
     class InventoryItem : public Draggable
     {
     public:
-        InventoryItem(const std::shared_ptr<SDL::Texture> &texture, int x, int y, int width, int height);
-        InventoryItem(const std::shared_ptr<SDL::Texture> &texture, const RectI &rect);
-        InventoryItem(const std::string &filepath, TexturesLoader &textureLoader, int x, int y, int width, int height);
-        InventoryItem(const std::string &filepath, TexturesLoader &textureLoader, const RectI &rect);
+        InventoryItem(const std::shared_ptr<SDL::Texture> &texture, const RectI &rect, DragSlots &slots, int currentSlot);
+        InventoryItem(const std::string &filepath, TexturesLoader &textureLoader, const RectI &rect, DragSlots &slots, int currentSlot);
 
         void draw(SDL::Renderer &renderer);
 
